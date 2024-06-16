@@ -11,6 +11,8 @@ name: Client build
 on:
   push:
   
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 jobs:
   buildios:
     name: Build iOS
