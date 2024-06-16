@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: 4.0.0
+          sdk: 3.4.3
       - run: flutter pub get
         working-directory: ./
       - run: flutter build ios --no-codesign
@@ -43,7 +43,7 @@ jobs:
       - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: 4.0.0
+          sdk: 3.4.3
       - run: flutter pub get
         working-directory: ./
       - run: flutter build appbundle
