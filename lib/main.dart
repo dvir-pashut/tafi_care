@@ -3,19 +3,9 @@ import 'pages/start_page.dart';
 import 'pages/food_page.dart';
 import 'pages/snack_page.dart';
 import 'pages/walk_page.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
-Future<void> _configureLocalTimeZone() async {
-  tz.initializeTimeZones();
-  final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
-  tz.setLocalLocation(tz.getLocation(timeZoneName));
-}
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await _configureLocalTimeZone();
   runApp(const MyApp());
 }
 
