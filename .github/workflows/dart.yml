@@ -1,23 +1,23 @@
 on: [push]
 
 jobs:
-  main:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install Flutter SDK
-        uses: mobiledevops/flutter-sdk-action@v1.0.0
-        with:
-          flutter-sdk-version: 3.22.2 # Updated version
-      - run: flutter --version
-      - run: flutter doctor
-      - run: flutter pub get
-      - run: flutter build ios --release --no-codesign
-      - name: Upload IPA as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ios-app
-          path: build/ios/iphoneos/Runner.app  # Path to the built IPA file
+  # main:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Install Flutter SDK
+  #       uses: mobiledevops/flutter-sdk-action@v1.0.0
+  #       with:
+  #         flutter-sdk-version: 3.22.2 # Updated version
+  #     - run: flutter --version
+  #     - run: flutter doctor
+  #     - run: flutter pub get
+  #     - run: flutter build ios --release --no-codesign
+  #     - name: Upload IPA as artifact
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: ios-app
+  #         path: build/ios/iphoneos/Runner.app  # Path to the built IPA file
 
   second:
     runs-on: ubuntu-latest

@@ -8,101 +8,144 @@ const String mongoUriDogStuff = "mongodb://root:IIOvTEH6qmRzInkh@ac-rkih2hp-shar
 
 class MongoDatabase {
   static Future<bool> checkUserLoginStatus() async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.getBool('isLoggedIn') ?? false;
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('isLoggedIn') ?? false;
   }
-  
+
   static Future<bool> authenticateUser(String email, String password) async {
-    var db = await Db.create(mongoUriUsers);
-    await db.open();
-    print("connected to database");
+    try {
+      var db = await Db.create(mongoUriUsers);
+      await db.open();
+      print("Connected to users database");
 
-    final collection = db.collection('users');
-    final user = await collection.findOne(where.eq('email', email).eq('password', password));
-
-    await db.close();
-    return user != null;
+      final collection = db.collection('users');
+      final user = await collection.findOne(where.eq('email', email).eq('password', password));
+      await db.close();
+      print("User authentication ${user != null ? 'successful' : 'failed'}");
+      return user != null;
+    } catch (e) {
+      print('Error in authenticateUser: $e');
+      return false;
+    }
   }
 
   static Future<DbCollection> _getTodayCollection() async {
-    var db = await Db.create(mongoUriDogStuff);
-    await db.open();
-    print("connected to dog-is-fed database");
+    try {
+      var db = await Db.create(mongoUriDogStuff);
+      await db.open();
+      print("Connected to dog-is-fed database");
 
-    final today = DateFormat('dd-MM-yyyy').format(DateTime.now());
-    final collection = db.collection(today);
+      final today = DateFormat('dd-MM-yyyy').format(DateTime.now());
+      final collection = db.collection(today);
 
-    final exists = await collection.count() > 0;
-    if (!exists) {
-      await collection.insertOne({
-        "food": "",
-        "snack": [],
-        "walk": {"morning": "", "evening": ""}
-      });
+      final exists = await collection.count() > 0;
+      if (!exists) {
+        await collection.insertOne({
+          "food": "",
+          "snack": [],
+          "walk": {"morning": "", "evening": ""}
+        });
+      }
+
+      print("Accessed today's collection: $today");
+      return collection;
+    } catch (e) {
+      print('Error in _getTodayCollection: $e');
+      rethrow;
     }
-    
-    return collection;
   }
 
   static Future<Map<String, dynamic>> getTodayDogData() async {
-    final collection = await _getTodayCollection();
-    final data = await collection.findOne();
-    print("Today's data: $data");
-    return data ?? {};
+    try {
+      final collection = await _getTodayCollection();
+      final data = await collection.findOne();
+      print("Today's data: $data");
+      return data ?? {};
+    } catch (e) {
+      print('Error in getTodayDogData: $e');
+      return {};
+    }
   }
 
   static Future<void> updateFoodStatus(bool status) async {
-    final collection = await _getTodayCollection();
-    await collection.updateOne(
-      where.exists('food'),
-      modify.set('food', status ? 'true' : 'false'),
-    );
-    print("Updated food status to ${status ? 'true' : 'false'}");
+    try {
+      final collection = await _getTodayCollection();
+      await collection.updateOne(
+        where.exists('food'),
+        modify.set('food', status ? 'true' : 'false'),
+      );
+      print("Updated food status to ${status ? 'true' : 'false'}");
+    } catch (e) {
+      print('Error in updateFoodStatus: $e');
+    }
   }
 
   static Future<List<String>> getTodaySnackData() async {
-  final collection = await _getTodayCollection();
-  final data = await collection.findOne();
-  return data?['snack'].cast<String>() ?? [];
+    try {
+      final collection = await _getTodayCollection();
+      final data = await collection.findOne();
+      print("Today's snack data: ${data?['snack']}");
+      return data?['snack'].cast<String>() ?? [];
+    } catch (e) {
+      print('Error in getTodaySnackData: $e');
+      return [];
+    }
   }
 
   static Future<void> addSnack(String time) async {
-  final collection = await _getTodayCollection();
-  await collection.updateOne(
-    where.exists('snack'),
-    modify.push('snack', time),
-  );
-  print("Added snack time: $time");
+    try {
+      final collection = await _getTodayCollection();
+      await collection.updateOne(
+        where.exists('snack'),
+        modify.push('snack', time),
+      );
+      print("Added snack time: $time");
+    } catch (e) {
+      print('Error in addSnack: $e');
+    }
   }
 
   static Future<void> deleteSnack(String time) async {
-  final collection = await _getTodayCollection();
-  await collection.updateOne(
-    where.exists('snack'),
-    modify.pull('snack', time),
-  );
-  print("Deleted snack time: $time");
+    try {
+      final collection = await _getTodayCollection();
+      await collection.updateOne(
+        where.exists('snack'),
+        modify.pull('snack', time),
+      );
+      print("Deleted snack time: $time");
+    } catch (e) {
+      print('Error in deleteSnack: $e');
+    }
   }
 
   static Future<Map<String, dynamic>> getWalkTimes() async {
-  var db = await Db.create(mongoUriDogStuff);
-  await db.open();
-  var collection = db.collection(DateFormat('dd-MM-yyyy').format(DateTime.now()));
-  var data = await collection.findOne();
-  print(data?['walk']);
-  await db.close();
-  return data?['walk'] ?? {"morning": "", "evening": ""};
+    try {
+      var db = await Db.create(mongoUriDogStuff);
+      await db.open();
+      var collection = db.collection(DateFormat('dd-MM-yyyy').format(DateTime.now()));
+      var data = await collection.findOne();
+      print("Today's walk times: ${data?['walk']}");
+      await db.close();
+      return data?['walk'] ?? {"morning": "", "evening": ""};
+    } catch (e) {
+      print('Error in getWalkTimes: $e');
+      return {"morning": "", "evening": ""};
+    }
   }
 
-static Future<void> updateWalkTime(String period, String? time) async {
-  var db = await Db.create(mongoUriDogStuff);
-  await db.open();
-  var collection = db.collection(DateFormat('dd-MM-yyyy').format(DateTime.now()));
-  await collection.updateOne(
-    where.exists('walk'),
-    modify.set('walk.$period', time ?? "")
-  );
-  await db.close();
+  static Future<void> updateWalkTime(String period, String? time) async {
+    try {
+      var db = await Db.create(mongoUriDogStuff);
+      await db.open();
+      var collection = db.collection(DateFormat('dd-MM-yyyy').format(DateTime.now()));
+      await collection.updateOne(
+        where.exists('walk'),
+        modify.set('walk.$period', time ?? "")
+      );
+      print("Updated $period walk time to $time");
+      await db.close();
+    } catch (e) {
+      print('Error in updateWalkTime: $e');
+    }
   }
-
 }
