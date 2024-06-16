@@ -24,6 +24,10 @@ jobs:
           java-version: '12.x'
       - run: git clone https://github.com/flutter/flutter.git --depth 1 -b v1.15.17 _flutter
       - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 4.0.0
       - run: flutter pub get
         working-directory: ./
       - run: flutter build ios --no-codesign
@@ -37,6 +41,9 @@ jobs:
           java-version: '12.x'
       - run: git clone https://github.com/flutter/flutter.git --depth 1 -b v1.15.17 _flutter
       - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 4.0.0
       - run: flutter pub get
         working-directory: ./
       - run: flutter build appbundle
