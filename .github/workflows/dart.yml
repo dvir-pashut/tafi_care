@@ -13,6 +13,11 @@ jobs:
       - run: flutter doctor
       - run: flutter pub get
       - run: flutter build ios --release --no-codesign
+      - name: Upload IPA as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ios-app
+          path: build/ios/iphoneos/Runner.app  # Path to the built IPA file
 
   second:
     runs-on: ubuntu-latest
@@ -26,3 +31,8 @@ jobs:
       - run: flutter doctor
       - run: flutter pub get
       - run: flutter build apk --release
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-app
+          path: build/app/outputs/flutter-apk/app-release.apk  # Path to the built APK file
