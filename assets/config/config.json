@@ -1,0 +1,9 @@
+{
+    "appId": "dog_data-rkoysnp",
+    "appUrl": "https://services.cloud.mongodb.com/groups/640b00f2ecd7d57a5c2def2b/apps/666d8fdfea9bcbfc44cf07ef",
+    "baseUrl": "https://services.cloud.mongodb.com",
+    "clientApiBaseUrl": "https://eu-central-1.aws.services.cloud.mongodb.com",
+    "dataApiBaseUrl": "https://eu-central-1.aws.data.mongodb-api.com",
+    "dataExplorerLink": "https://cloud.mongodb.com/links/640b00f2ecd7d57a5c2def2b/explorer/dog-is-fed/database/collection/find",
+    "dataSourceName": "mongodb-atlas"
+}
