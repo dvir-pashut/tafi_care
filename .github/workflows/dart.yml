@@ -25,9 +25,10 @@ jobs:
       - run: git clone https://github.com/flutter/flutter.git --depth 1 -b v1.15.17 _flutter
       - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
       - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1
+      - name: Install Flutter SDK
+        uses: mobiledevops/flutter-sdk-action@v1.0.0
         with:
-          sdk: 3.4.3
+          flutter-sdk-version: 3.4.3
       - run: flutter pub get
         working-directory: ./
       - run: flutter build ios --no-codesign
@@ -41,9 +42,10 @@ jobs:
           java-version: '12.x'
       - run: git clone https://github.com/flutter/flutter.git --depth 1 -b v1.15.17 _flutter
       - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
-      - uses: dart-lang/setup-dart@v1
+      - name: Install Flutter SDK
+        uses: mobiledevops/flutter-sdk-action@v1.0.0
         with:
-          sdk: 3.4.3
+          flutter-sdk-version: 3.7.7
       - run: flutter pub get
         working-directory: ./
       - run: flutter build appbundle
