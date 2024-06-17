@@ -1,5 +1,10 @@
 on: [push]
 
+permissions:
+  contents: write
+  pages: write
+  statuses: write
+
 jobs:
   # ios:
   #   runs-on: macos-latest
