@@ -18,11 +18,11 @@ jobs:
   #     - run: flutter doctor
   #     - run: flutter pub get
   #     - run: flutter build ios --release --no-codesign
-  #     - name: Upload IPA as artifact
+  #     - name: Upload build as artifact
   #       uses: actions/upload-artifact@v3
   #       with:
   #         name: ios-app
-  #         path: build/ios/iphoneos/Runner.app  # Path to the built IPA file
+  #         path: build/ios/iphoneos/Runner.app  
 
   # android:
   #   runs-on: ubuntu-latest
@@ -36,11 +36,11 @@ jobs:
   #     - run: flutter doctor
   #     - run: flutter pub get
   #     - run: flutter build apk --release
-  #     - name: Upload APK as artifact
+  #     - name: Upload build as artifact
   #       uses: actions/upload-artifact@v3
   #       with:
   #         name: android-app
-  #         path: build/app/outputs/flutter-apk/app-release.apk  # Path to the built APK file
+  #         path: build/app/outputs/flutter-apk/app-release.apk  
 
   web:
     runs-on: ubuntu-latest
@@ -49,7 +49,7 @@ jobs:
       - name: Install Flutter SDK
         uses: mobiledevops/flutter-sdk-action@v1.0.0
         with:
-          flutter-sdk-version: 3.22.2 # Updated version
+          flutter-sdk-version: 3.22.2 
       - run: flutter --version
       - run: flutter doctor
       - run: flutter pub get
@@ -59,3 +59,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: build/web
+      - name: Upload build as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: webb-app
+          path:  build/web  
