@@ -35,6 +35,7 @@ jobs:
       - run: flutter --version
       - run: flutter doctor
       - run: flutter pub get
+      - run: flutter pub run flutter_launcher_icons:main
       - run: flutter build apk --release
       - name: Upload build as artifact
         uses: actions/upload-artifact@v3
