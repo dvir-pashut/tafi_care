@@ -31,7 +31,7 @@ class _FoodPageState extends State<FoodPage> {
     final data = await MongoDatabase.getTodayDogData();
     if (data.isNotEmpty && data['food'] == 'true') {
       setState(() {
-        _displayText = '!טאפי הואכלה היום';
+        _displayText = '!טאפי קיבלה מזון היום';
         _foodGiven = true;  // Food has been given
         _isLoading = false;  // Stop loading
       });
@@ -51,7 +51,7 @@ class _FoodPageState extends State<FoodPage> {
     
     await MongoDatabase.updateFoodStatus(true);
     setState(() {
-      _displayText = '!טאפי הואכלה היום';
+      _displayText = '!טאפי קיבלה מזון היום';
       _foodGiven = true;
       _isLoading = false;  // Stop loading
     });
@@ -117,7 +117,7 @@ class _FoodPageState extends State<FoodPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                       ),
-                      child: const Text('I did not feed her, it\'s a mistake'),
+                      child: const Text('לא האכלתי אותה...לחצתי בטעות'),
                     ),
                 ],
               ),

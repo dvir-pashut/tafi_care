@@ -87,22 +87,23 @@ class _WalkPageState extends State<WalkPage> {
   Widget buildWalkPeriodUI(String period) {
     String time = walkTimes[period];
     bool hasTime = time.isNotEmpty;
-
+    String Hperiod = period == 'evening' ? 'ערב' : 'בוקר';
+  
     return Column(
       children: [
         Text(
-          hasTime ? '$period Walk: $time' : '$period trip did not happen yet',
+          hasTime ? 'טיול $Hperiod: $time' : '$Hperiod עדיין לא קרה',
           style: const TextStyle(color: Colors.black, fontSize: 24),
         ),
         hasTime
           ? ElevatedButton(
               onPressed: () => clearWalkTime(period),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
-              child: Text('Clear $period Walk'),
+              child: const Text('מחיקה'),
             )
           : ElevatedButton(
               onPressed: () => updateWalkTime(period),
-              child: Text('Set $period Walk'),
+              child: const Text('הוצאתי אותה לטיול עכשיו'),
             ),
       ],
     );

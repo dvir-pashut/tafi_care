@@ -74,7 +74,7 @@ class _StartPageState extends State<StartPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-              'Welcome to Tafi Care',
+              'ברוך הבא לטאפי קר',
               style: TextStyle(color: Colors.black, fontSize: 30),
             ),
             const SizedBox(height: 20),
@@ -82,7 +82,7 @@ class _StartPageState extends State<StartPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextField(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'שם משתמש'),
               ),
             ),
             Padding(
@@ -90,7 +90,7 @@ class _StartPageState extends State<StartPage> {
               child: TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'סיסמא'),
               ),
             ),
             const SizedBox(height: 20),
@@ -98,7 +98,7 @@ class _StartPageState extends State<StartPage> {
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
                     onPressed: _login,
-                    child: const Text('Log In'),
+                    child: const Text('התחברות'),
                   ),
             const SizedBox(height: 10),
           ],

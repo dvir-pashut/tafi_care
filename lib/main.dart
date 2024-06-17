@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tafi Care',
+      title: 'טאפי קר',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

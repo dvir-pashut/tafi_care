@@ -16,15 +16,15 @@ class CustomBottomNavBar extends StatelessWidget {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.food_bank),
-          label: 'food',
+          label: 'מזון',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.cake),
-          label: 'snack',
+          label: 'חטיפים',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.directions_run),
-          label: 'walk',
+          label: 'טיולים',
         ),
       ],
       currentIndex: selectedIndex,

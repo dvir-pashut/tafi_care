@@ -91,17 +91,17 @@ class _SnackPageState extends State<SnackPage> {
                 children: [
                   if (snackTimes.isEmpty)
                     const Text(
-                      'No snacks were given',
+                      'לא קיבלה חטיפים עדיין ',
                       style: TextStyle(color: Colors.black, fontSize: 24),
                     )
                   else
                     Text(
-                      'Snacks were given at: ${snackTimes.join(', ')}',
+                      '${snackTimes.join(', ')}:קיבלה חטיפים ב',
                       style: const TextStyle(color: Colors.black, fontSize: 24),
                     ),
                   ElevatedButton(
                     onPressed: _addSnack,
-                    child: const Text('Add Current Time as Snack'),
+                    child: const Text('נתתי לה חטיף עכשיו'),
                   ),
                   if (snackTimes.isNotEmpty)
                     ElevatedButton(
@@ -109,7 +109,7 @@ class _SnackPageState extends State<SnackPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red, // Button color
                       ),
-                      child: const Text('Delete Entry'),
+                      child: const Text('מחק שעה ספציפית'),
                     ),
                   if (showDeleteOptions)
                     Wrap(

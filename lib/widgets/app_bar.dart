@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.blue,
-      title: const Text('Tafi Care'),
+      title: const Text('טאפי קר'),
       actions: isLoggedIn ? <Widget>[ // Conditionally add the logout button
         IconButton(
           icon: const Icon(Icons.exit_to_app), // Icon for logout

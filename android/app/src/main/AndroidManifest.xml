@@ -4,8 +4,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:label="flutter_application"
-        android:name="${applicationName}"
+        android:label="טאפי קר"
+        android:name="טאפי קר"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
