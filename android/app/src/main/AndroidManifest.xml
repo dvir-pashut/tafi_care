@@ -5,7 +5,7 @@
 
     <application
         android:label="טאפי קר"
-        android:name="טאפי קר"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
