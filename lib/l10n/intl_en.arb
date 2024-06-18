@@ -1,0 +1,9 @@
+{
+  "title": "Tafi Care",
+  "welcome": "Welcome to Tafi Care",
+  "username": "Username",
+  "password": "Password",
+  "login": "Login",
+  "authenticationFailed": "Authentication Failed",
+  "logout": "Logout"
+}

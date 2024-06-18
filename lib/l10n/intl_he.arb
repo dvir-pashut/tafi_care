@@ -1,0 +1,9 @@
+{
+  "title": "טאפי קר",
+  "welcome": "ברוך הבא לטאפי קר",
+  "username": "שם משתמש",
+  "password": "סיסמא",
+  "login": "התחברות",
+  "authenticationFailed": "התחברות נכשלה",
+  "logout": "התנתקות"
+}

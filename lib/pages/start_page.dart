@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/app_bar.dart';
 import '../mongo_methods/mongo_methods.dart';
+import '../l10n/localizations.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _StartPageState createState() => _StartPageState();
 }
 
@@ -25,11 +25,8 @@ class _StartPageState extends State<StartPage> {
   Future<void> _checkLoginStatus() async {
     final prefs = await SharedPreferences.getInstance();
     final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-    //await prefs.remove('isLoggedIn'); //TODO: remove this line this is for debug only
 
     if (isLoggedIn) {
-      // Navigate to the main page
-      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/main');
     }
   }
@@ -41,21 +38,15 @@ class _StartPageState extends State<StartPage> {
 
     final email = _emailController.text;
     final password = _passwordController.text;
-
     final isAuthenticated = await MongoDatabase.authenticateUser(email, password);
 
     if (isAuthenticated) {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
-
-      // Navigate to the main page
-      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/main');
     } else {
-      // Show error message
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Authentication Failed')),
+        SnackBar(content: Text(AppLocalizations.of(context)?.authenticationFailed ?? 'Authentication Failed')),
       );
     }
 
@@ -66,6 +57,7 @@ class _StartPageState extends State<StartPage> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: const CustomAppBar(),
       backgroundColor: Colors.lightBlue,
@@ -73,16 +65,16 @@ class _StartPageState extends State<StartPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'ברוך הבא לטאפי קר',
-              style: TextStyle(color: Colors.black, fontSize: 30),
+            Text(
+              localizations?.welcome ?? 'Welcome', // Fallback to 'Welcome' if null
+              style: const TextStyle(color: Colors.black, fontSize: 30),
             ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextField(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: 'שם משתמש'),
+                decoration: InputDecoration(labelText: localizations?.username ?? 'Username'), // Fallback to 'Username'
               ),
             ),
             Padding(
@@ -90,7 +82,7 @@ class _StartPageState extends State<StartPage> {
               child: TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(labelText: 'סיסמא'),
+                decoration: InputDecoration(labelText: localizations?.password ?? 'Password'), // Fallback to 'Password'
               ),
             ),
             const SizedBox(height: 20),
@@ -98,7 +90,7 @@ class _StartPageState extends State<StartPage> {
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
                     onPressed: _login,
-                    child: const Text('התחברות'),
+                    child: Text(localizations?.login ?? 'Login'), // Fallback to 'Login'
                   ),
             const SizedBox(height: 10),
           ],

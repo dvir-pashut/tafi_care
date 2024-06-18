@@ -87,12 +87,13 @@ class _WalkPageState extends State<WalkPage> {
   Widget buildWalkPeriodUI(String period) {
     String time = walkTimes[period];
     bool hasTime = time.isNotEmpty;
+    // ignore: non_constant_identifier_names
     String Hperiod = period == 'evening' ? 'ערב' : 'בוקר';
   
     return Column(
       children: [
         Text(
-          hasTime ? 'טיול $Hperiod: $time' : '$Hperiod עדיין לא קרה',
+          hasTime ? '$Hperiod: $time' : 'טיול $Hperiod עדיין לא קרה',
           style: const TextStyle(color: Colors.black, fontSize: 24),
         ),
         hasTime

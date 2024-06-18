@@ -37,7 +37,7 @@ class _FoodPageState extends State<FoodPage> {
       });
     } else {
       setState(() {
-        _displayText = '?האכלת את טאפי היום';
+        _displayText = 'האכלת את טאפי היום?';
         _foodGiven = false;  // Food has not been given
         _isLoading = false;  // Stop loading
       });

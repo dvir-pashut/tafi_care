@@ -1,34 +1,90 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../l10n/localizations.dart'; // Ensure this is correctly imported
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final bool isLoggedIn; // Added to determine if the logout button should be shown.
-
-  const CustomAppBar({
-    super.key,
-    this.isLoggedIn = false, // Default to false if not provided.
-  });
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+  final bool isLoggedIn;
+  const CustomAppBar({super.key, this.isLoggedIn = false});
 
   @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.blue,
-      title: const Text('טאפי קר'),
-      actions: isLoggedIn ? <Widget>[ // Conditionally add the logout button
-        IconButton(
-          icon: const Icon(Icons.exit_to_app), // Icon for logout
-          onPressed: () async {
-            final prefs = await SharedPreferences.getInstance();
-            await prefs.remove('isLoggedIn'); // Remove the logged in flag
-            // ignore: use_build_context_synchronously
-            Navigator.pushReplacementNamed(context, '/'); // Navigate to the start/login page
-          },
-          tooltip: 'Logout',
-        ),
-      ] : [],
-    );
-  }
+  _CustomAppBarState createState() => _CustomAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    final title = localizations?.title ?? 'tafi care'; // Fallback to 'Default Title' if null
+
+    return AppBar(
+      backgroundColor: Colors.blue,
+      leading: IconButton(
+        icon: const Icon(Icons.language),
+        onPressed: () => _showLanguagePicker(context),
+      ),
+      title: Text(title),
+      actions: _buildActions(context),
+    );
+  }
+
+  List<Widget> _buildActions(BuildContext context) {
+    if (!widget.isLoggedIn) {
+      return [];
+    }
+
+    return [
+      IconButton(
+        icon: const Icon(Icons.exit_to_app),
+        onPressed: () async {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.remove('isLoggedIn');
+          // Use mounted check to prevent setState if widget is not in tree
+          if (mounted) {
+            Navigator.pushReplacementNamed(context, '/');
+          }
+        },
+        tooltip: AppLocalizations.of(context)?.logout ?? 'Logout', // Handle null with fallback
+      ),
+    ];
+  }
+
+  void _showLanguagePicker(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: const Text('Choose Language'),
+          children: <Widget>[
+            SimpleDialogOption(
+              onPressed: () {
+                _changeLanguage(const Locale('en', 'US'));
+              },
+              child: const Text('English'),
+            ),
+            SimpleDialogOption(
+              onPressed: () {
+                _changeLanguage(const Locale('he', 'IL'));
+              },
+              child: const Text('עברית'), // Hebrew
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _changeLanguage(Locale newLocale) {
+    // Check if the widget is still part of the tree
+    if (mounted) {
+      // Use Provider to set the locale across the app
+      final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+      localeProvider.setLocale(newLocale);
+      Navigator.pop(context); // Close the dialog after changing the language
+    }
+  }
 }
