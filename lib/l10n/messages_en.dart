@@ -29,12 +29,14 @@ class MessageLookup extends MessageLookupByLibrary {
     'clear': MessageLookupByLibrary.simpleMessage('Clear'),
     'clearSpecificTime': MessageLookupByLibrary.simpleMessage('Clear Specific Time'),
     'foodGivenToday': MessageLookupByLibrary.simpleMessage('Tafi has been fed today!'),
+    'foodLabel': MessageLookupByLibrary.simpleMessage('Food'),
     'foodQuestion': MessageLookupByLibrary.simpleMessage('Did you feed Tafi today?'),
     'login': MessageLookupByLibrary.simpleMessage('Login'),
     'logout': MessageLookupByLibrary.simpleMessage('Logout'),
     'password': MessageLookupByLibrary.simpleMessage('Password'),
     'snackQuestion': MessageLookupByLibrary.simpleMessage('No snacks given yet'),
     'snackTimes': MessageLookupByLibrary.simpleMessage('Snacks given at:'),
+    'snacksLabel': MessageLookupByLibrary.simpleMessage('Snacks'),
     'startSnackNow': MessageLookupByLibrary.simpleMessage('I gave Snack just Now'),
     'startWalkNow': MessageLookupByLibrary.simpleMessage('Start Walk Now'),
     'title': MessageLookupByLibrary.simpleMessage('Tafi Care'),
@@ -46,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'walkPeriodEvening': MessageLookupByLibrary.simpleMessage('Evening'),
     'walkPeriodMorning': MessageLookupByLibrary.simpleMessage('Morning'),
     'walkQuestion': MessageLookupByLibrary.simpleMessage('Did you walk Tafi today?'),
+    'walksLabel': MessageLookupByLibrary.simpleMessage('Walks'),
     'welcome': MessageLookupByLibrary.simpleMessage('Welcome to Tafi Care')
   };
 }

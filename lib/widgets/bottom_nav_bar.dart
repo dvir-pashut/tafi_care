@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import '../l10n/localizations.dart'; // Import your localizations
 
 class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onItemTapped;
 
-  const CustomBottomNavBar({super.key, 
+  const CustomBottomNavBar({
+    super.key, 
     required this.selectedIndex,
     required this.onItemTapped,
   });
@@ -12,19 +14,21 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final labels = AppLocalizations.of(context)!; // Get localization instance
+
     return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.food_bank),
-          label: 'מזון',
+          label: labels.foodLabel, // Localized label
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.cake),
-          label: 'חטיפים',
+          label: labels.snacksLabel, // Localized label
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.directions_run),
-          label: 'טיולים',
+          label: labels.walksLabel, // Localized label
         ),
       ],
       currentIndex: selectedIndex,

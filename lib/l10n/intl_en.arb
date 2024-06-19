@@ -22,5 +22,8 @@
   "snackQuestion": "No snacks given yet",
   "snackTimes": "Snacks given at:",
   "startSnackNow": "I gave Snack just Now",
-  "clearSpecificTime":"Clear Specific Time"
+  "clearSpecificTime":"Clear Specific Time",
+  "foodLabel": "Food",
+  "snacksLabel": "Snacks",
+  "walksLabel": "Walks"
 }

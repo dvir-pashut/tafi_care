@@ -49,13 +49,18 @@ class AppLocalizations {
   String get walkNotYetEvening => Intl.message("No evening walk yet", name: 'walkNotYetEvening', desc: 'Message shown when no evening walk has been recorded');
   String get startWalkNow => Intl.message('Start Walk Now', name: 'startWalkNow');
   String get clear => Intl.message('Clear', name: 'clear');
+
+  // bottom navigation bar
+  String get foodLabel => Intl.message('Food', name: 'foodLabel');
+  String get snacksLabel => Intl.message('Snacks', name: 'snacksLabel');
+  String get walksLabel => Intl.message('Walks', name: 'walksLabel');
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en', 'he'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => ['en', 'he', 'zh'].contains(locale.languageCode);
 
   @override
   Future<AppLocalizations> load(Locale locale) => AppLocalizations.load(locale);
@@ -63,3 +68,4 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   @override
   bool shouldReload(AppLocalizationsDelegate old) => false;
 }
+

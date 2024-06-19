@@ -29,12 +29,14 @@ class MessageLookup extends MessageLookupByLibrary {
     'clear': MessageLookupByLibrary.simpleMessage('נקה ערך'),
     'clearSpecificTime': MessageLookupByLibrary.simpleMessage('מחק זמן ספציפי'),
     'foodGivenToday': MessageLookupByLibrary.simpleMessage('טאפי קיבלה מזון היום!'),
+    'foodLabel': MessageLookupByLibrary.simpleMessage('מזון'),
     'foodQuestion': MessageLookupByLibrary.simpleMessage('האכלת את טאפי היום?'),
     'login': MessageLookupByLibrary.simpleMessage('התחברות'),
     'logout': MessageLookupByLibrary.simpleMessage('התנתק'),
     'password': MessageLookupByLibrary.simpleMessage('סיסמא'),
     'snackQuestion': MessageLookupByLibrary.simpleMessage('עדיין לא קיבלה חטיפים'),
     'snackTimes': MessageLookupByLibrary.simpleMessage('חטיפים ניתנו ב:'),
+    'snacksLabel': MessageLookupByLibrary.simpleMessage('חטיפים'),
     'startSnackNow': MessageLookupByLibrary.simpleMessage('נתתי חטיף עכשיו!'),
     'startWalkNow': MessageLookupByLibrary.simpleMessage('התחל טיול עכשיו'),
     'title': MessageLookupByLibrary.simpleMessage('טאפי קר'),
@@ -46,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'walkPeriodEvening': MessageLookupByLibrary.simpleMessage('ערב'),
     'walkPeriodMorning': MessageLookupByLibrary.simpleMessage('בוקר'),
     'walkQuestion': MessageLookupByLibrary.simpleMessage('הוצאת את טאפי היום?'),
+    'walksLabel': MessageLookupByLibrary.simpleMessage('טיולים'),
     'welcome': MessageLookupByLibrary.simpleMessage('ברוך הבא לטאפי קר')
   };
 }

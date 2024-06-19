@@ -22,5 +22,8 @@
   "snackQuestion": "עדיין לא קיבלה חטיפים",
   "snackTimes": "חטיפים ניתנו ב:",
   "startSnackNow": "נתתי חטיף עכשיו!",
-  "clearSpecificTime":"מחק זמן ספציפי"
+  "clearSpecificTime":"מחק זמן ספציפי",
+  "foodLabel": "מזון",
+  "snacksLabel": "חטיפים",
+  "walksLabel": "טיולים"
 }

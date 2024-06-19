@@ -75,6 +75,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
               },
               child: const Text('עברית'), // Hebrew
             ),
+                        SimpleDialogOption(
+              onPressed: () {
+                _changeLanguage(const Locale('zh', 'ZH'));
+              },
+              child: const Text('סינית'), // Hebrew
+            ),
           ],
         );
       },

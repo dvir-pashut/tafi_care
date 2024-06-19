@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
             supportedLocales: const [
               Locale('en', 'US'),  // English
               Locale('he', 'IL'),  // Hebrew
+              Locale('zh', 'ZH'),
             ],
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
