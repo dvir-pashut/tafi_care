@@ -5,5 +5,22 @@
   "password": "Password",
   "login": "Login",
   "authenticationFailed": "Authentication Failed",
-  "logout": "Logout"
+  "logout": "Logout",
+  "foodQuestion": "Did you feed Tafi today?",
+  "foodGivenToday": "Tafi has been fed today!",
+  "snackQuestion": "No snacks given yet",
+  "snackTimes": "Snacks given at: ",
+  "walkQuestion": "Did you walk Tafi today?",
+  "walkGivenToday": "Walk recorded for today!",
+  "undo": "I didn't feed her... I pressed by mistake",
+  "walkPeriodMorning": "Morning",
+  "walkPeriodEvening": "Evening",
+  "walkNotYetMorning": "No morning walk yet",
+  "walkNotYetEvening": "No evening walk yet",
+  "clear": "Clear",
+  "startWalkNow": "Start Walk Now",
+  "snackQuestion": "No snacks given yet",
+  "snackTimes": "Snacks given at:",
+  "startSnackNow": "I gave Snack just Now",
+  "clearSpecificTime":"Clear Specific Time"
 }

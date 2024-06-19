@@ -5,5 +5,22 @@
   "password": "סיסמא",
   "login": "התחברות",
   "authenticationFailed": "התחברות נכשלה",
-  "logout": "התנתקות"
+  "logout": "התנתק",
+  "foodQuestion": "האכלת את טאפי היום?",
+  "foodGivenToday": "טאפי קיבלה מזון היום!",
+  "snackQuestion": "לא קיבלה חטיפים עדיין",
+  "snackTimes": "קיבלה חטיפים ב: ",
+  "walkQuestion": "הוצאת את טאפי היום?",
+  "walkGivenToday": "טיול רשום להיום!",
+  "undo": "לא האכלתי אותה...לחצתי בטעות",
+  "walkPeriodMorning": "בוקר",
+  "walkPeriodEvening": "ערב",
+  "walkNotYetMorning": "טיול בוקר עדיין לא קרה",
+  "walkNotYetEvening": "טיול ערב עדיין לא קרה",
+  "clear": "נקה ערך",
+  "startWalkNow": "התחל טיול עכשיו",
+  "snackQuestion": "עדיין לא קיבלה חטיפים",
+  "snackTimes": "חטיפים ניתנו ב:",
+  "startSnackNow": "נתתי חטיף עכשיו!",
+  "clearSpecificTime":"מחק זמן ספציפי"
 }

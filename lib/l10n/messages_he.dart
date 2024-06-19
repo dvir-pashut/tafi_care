@@ -26,11 +26,26 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
       'authenticationFailed': MessageLookupByLibrary.simpleMessage('התחברות נכשלה'),
+    'clear': MessageLookupByLibrary.simpleMessage('נקה ערך'),
+    'clearSpecificTime': MessageLookupByLibrary.simpleMessage('מחק זמן ספציפי'),
+    'foodGivenToday': MessageLookupByLibrary.simpleMessage('טאפי קיבלה מזון היום!'),
+    'foodQuestion': MessageLookupByLibrary.simpleMessage('האכלת את טאפי היום?'),
     'login': MessageLookupByLibrary.simpleMessage('התחברות'),
-    'logout': MessageLookupByLibrary.simpleMessage('התנתקות'),
+    'logout': MessageLookupByLibrary.simpleMessage('התנתק'),
     'password': MessageLookupByLibrary.simpleMessage('סיסמא'),
+    'snackQuestion': MessageLookupByLibrary.simpleMessage('עדיין לא קיבלה חטיפים'),
+    'snackTimes': MessageLookupByLibrary.simpleMessage('חטיפים ניתנו ב:'),
+    'startSnackNow': MessageLookupByLibrary.simpleMessage('נתתי חטיף עכשיו!'),
+    'startWalkNow': MessageLookupByLibrary.simpleMessage('התחל טיול עכשיו'),
     'title': MessageLookupByLibrary.simpleMessage('טאפי קר'),
+    'undo': MessageLookupByLibrary.simpleMessage('לא האכלתי אותה...לחצתי בטעות'),
     'username': MessageLookupByLibrary.simpleMessage('שם משתמש'),
+    'walkGivenToday': MessageLookupByLibrary.simpleMessage('טיול רשום להיום!'),
+    'walkNotYetEvening': MessageLookupByLibrary.simpleMessage('טיול ערב עדיין לא קרה'),
+    'walkNotYetMorning': MessageLookupByLibrary.simpleMessage('טיול בוקר עדיין לא קרה'),
+    'walkPeriodEvening': MessageLookupByLibrary.simpleMessage('ערב'),
+    'walkPeriodMorning': MessageLookupByLibrary.simpleMessage('בוקר'),
+    'walkQuestion': MessageLookupByLibrary.simpleMessage('הוצאת את טאפי היום?'),
     'welcome': MessageLookupByLibrary.simpleMessage('ברוך הבא לטאפי קר')
   };
 }

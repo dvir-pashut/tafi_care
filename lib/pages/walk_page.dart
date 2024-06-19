@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../mongo_methods/mongo_methods.dart';
+import '../l10n/localizations.dart'; // Ensure this is correctly imported
 import 'package:intl/intl.dart';
 
 class WalkPage extends StatefulWidget {
   const WalkPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _WalkPageState createState() => _WalkPageState();
 }
 
@@ -24,22 +24,20 @@ class _WalkPageState extends State<WalkPage> {
   }
 
   void fetchWalkTimes() async {
-    setState(() {
-      isLoading = true;
-    });
+    setState(() => isLoading = true);
     walkTimes = await MongoDatabase.getWalkTimes();
-    setState(() {
-      isLoading = false;
-    });
+    setState(() => isLoading = false);
   }
 
   void updateWalkTime(String period) async {
+    setState(() => isLoading = true);
     String time = DateFormat('HH:mm').format(DateTime.now());
     await MongoDatabase.updateWalkTime(period, time);
     fetchWalkTimes();
   }
 
   void clearWalkTime(String period) async {
+    setState(() => isLoading = true);
     await MongoDatabase.updateWalkTime(period, null);
     fetchWalkTimes();
   }
@@ -51,10 +49,10 @@ class _WalkPageState extends State<WalkPage> {
 
     switch (index) {
       case 0:
-        Navigator.pushReplacementNamed(context, '/main');  // Navigate to Food Page
+        Navigator.pushReplacementNamed(context, '/main');
         break;
       case 1:
-        Navigator.pushReplacementNamed(context, '/snack');  // Navigate to Snack Page
+        Navigator.pushReplacementNamed(context, '/snack');
         break;
       case 2:
         break;  // Already on Walk Page
@@ -63,6 +61,8 @@ class _WalkPageState extends State<WalkPage> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: const CustomAppBar(isLoggedIn: true),
       backgroundColor: Colors.lightBlue,
@@ -72,8 +72,8 @@ class _WalkPageState extends State<WalkPage> {
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildWalkPeriodUI('morning'),
-                buildWalkPeriodUI('evening'),
+                buildWalkPeriodUI('morning', localizations),
+                buildWalkPeriodUI('evening', localizations),
               ],
             ),
       ),
@@ -84,27 +84,27 @@ class _WalkPageState extends State<WalkPage> {
     );
   }
 
-  Widget buildWalkPeriodUI(String period) {
+  Widget buildWalkPeriodUI(String period, AppLocalizations? localizations) {
     String time = walkTimes[period];
     bool hasTime = time.isNotEmpty;
-    // ignore: non_constant_identifier_names
-    String Hperiod = period == 'evening' ? 'ערב' : 'בוקר';
   
     return Column(
       children: [
         Text(
-          hasTime ? '$Hperiod: $time' : 'טיול $Hperiod עדיין לא קרה',
+          hasTime 
+            ? '${period == "morning" ? localizations!.walkPeriodMorning : localizations!.walkPeriodEvening}: $time' 
+            : (period == "morning" ? localizations!.walkNotYetMorning : localizations!.walkNotYetEvening),
           style: const TextStyle(color: Colors.black, fontSize: 24),
         ),
         hasTime
           ? ElevatedButton(
               onPressed: () => clearWalkTime(period),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
-              child: const Text('מחיקה'),
+              child: Text(localizations!.clear),
             )
           : ElevatedButton(
               onPressed: () => updateWalkTime(period),
-              child: const Text('הוצאתי אותה לטיול עכשיו'),
+              child: Text(localizations!.startWalkNow),
             ),
       ],
     );

@@ -19,40 +19,38 @@ class _StartPageState extends State<StartPage> {
   @override
   void initState() {
     super.initState();
-    _checkLoginStatus();
+    _loadCredentialsAndLogin();
   }
 
-  Future<void> _checkLoginStatus() async {
+  Future<void> _loadCredentialsAndLogin() async {
     final prefs = await SharedPreferences.getInstance();
-    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-
-    if (isLoggedIn) {
-      Navigator.pushReplacementNamed(context, '/main');
+    final String? email = prefs.getString('email');
+    final String? password = prefs.getString('password');
+    if (email != null && password != null) {
+      _emailController.text = email;
+      _passwordController.text = password;
+      await _login();
     }
   }
 
   Future<void> _login() async {
-    setState(() {
-      _isLoading = true;
-    });
-
+    setState(() => _isLoading = true);
     final email = _emailController.text;
     final password = _passwordController.text;
-    final isAuthenticated = await MongoDatabase.authenticateUser(email, password);
 
+    final isAuthenticated = await MongoDatabase.authenticateUser(email, password);
     if (isAuthenticated) {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
+      await prefs.setString('email', email);
+      await prefs.setString('password', password);
       Navigator.pushReplacementNamed(context, '/main');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(AppLocalizations.of(context)?.authenticationFailed ?? 'Authentication Failed')),
       );
     }
-
-    setState(() {
-      _isLoading = false;
-    });
+    setState(() => _isLoading = false);
   }
 
   @override

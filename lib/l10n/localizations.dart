@@ -4,47 +4,51 @@ import 'messages_all.dart'; // Make sure this line points to your generated mess
 
 class AppLocalizations {
   static Future<AppLocalizations> load(Locale locale) {
-    final String name = locale.countryCode!.isEmpty ? locale.languageCode : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
-    print("Loading messages for: $localeName");
-    return initializeMessages(localeName).then((_) {
-      Intl.defaultLocale = localeName;
-      return AppLocalizations();
-    });
-  }
+  final String name = locale.countryCode!.isEmpty ? locale.languageCode : locale.toString();
+  final localeName = Intl.canonicalizedLocale(name);
+  print("AppLocalizations loading locale: $localeName");
+  return initializeMessages(localeName).then((bool _) {
+    Intl.defaultLocale = localeName;
+    return AppLocalizations();
+  });
+}
 
 
   static AppLocalizations? of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  String get title {
-    return Intl.message('טאפי קר', name: 'title');
-  }
+  // General
+  String get title => Intl.message('טאפי קר', name: 'title');
+  String get welcome => Intl.message('ברוך הבא לטאפי קר', name: 'welcome');
+  String get username => Intl.message('שם משתמש', name: 'username');
+  String get password => Intl.message('סיסמא', name: 'password');
+  String get login => Intl.message('התחברות', name: 'login');
+  String get logout => Intl.message('Logout', name: 'logout');
+  String get undo => Intl.message('I didn not feed her... I pressed by mistake', name: 'undo');
 
-  String get welcome {
-    return Intl.message('ברוך הבא לטאפי קר', name: 'welcome');
-  }
+  // Authentication
+  String get authenticationFailed => Intl.message('Authentication Failed', name: 'authenticationFailed');
 
-  String get username {
-    return Intl.message('שם משתמש', name: 'username');
-  }
+  // Food Page
+  String get foodQuestion => Intl.message('Did you feed Tafi today?', name: 'foodQuestion');
+  String get foodGivenToday => Intl.message('Tafi has been fed today!', name: 'foodGivenToday');
 
-  String get password {
-    return Intl.message('סיסמא', name: 'password');
-  }
+  // Snack Page
+  String get snackQuestion => Intl.message('No snacks given yet', name: 'snackQuestion');
+  String get snackTimes => Intl.message('Snacks given at: ', name: 'snackTimes');
+  String get startSnackNow => Intl.message('I gave Snack just Now', name: 'startSnackNow');
+  String get clearSpecificTime => Intl.message('Clear Specific Time', name: 'clearSpecificTime');
 
-  String get login {
-    return Intl.message('התחברות', name: 'login');
-  }
-
-  String get authenticationFailed {
-    return Intl.message('Authentication Failed', name: 'authenticationFailed');
-  }
-
-  String get logout {
-    return Intl.message('Logout', name: 'logout');
-  }
+  // Walk Page
+  String get walkQuestion => Intl.message('Did you walk Tafi today?', name: 'walkQuestion');
+  String get walkGivenToday => Intl.message('Walk recorded for today!', name: 'walkGivenToday');
+  String get walkPeriodMorning => Intl.message("Morning", name: 'walkPeriodMorning', desc: 'Label for morning walk period');
+  String get walkPeriodEvening => Intl.message("Evening", name: 'walkPeriodEvening', desc: 'Label for evening walk period');
+  String get walkNotYetMorning => Intl.message("No morning walk yet", name: 'walkNotYetMorning', desc: 'Message shown when no morning walk has been recorded');
+  String get walkNotYetEvening => Intl.message("No evening walk yet", name: 'walkNotYetEvening', desc: 'Message shown when no evening walk has been recorded');
+  String get startWalkNow => Intl.message('Start Walk Now', name: 'startWalkNow');
+  String get clear => Intl.message('Clear', name: 'clear');
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

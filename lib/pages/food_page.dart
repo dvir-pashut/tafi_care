@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../mongo_methods/mongo_methods.dart';
+import '../l10n/localizations.dart'; 
 
 class FoodPage extends StatefulWidget {
   const FoodPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _FoodPageState createState() => _FoodPageState();
 }
 
 class _FoodPageState extends State<FoodPage> {
-  String _displayText = '?האכלת את טאפי היום';
-  bool _foodGiven = false;  // Adjust this to track if food has been given
-  bool _isLoading = true;  // Track loading state
-  int _selectedIndex = 0;  // Initial index for bottom nav
+  bool _foodGiven = false;
+  bool _isLoading = true;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -24,50 +23,55 @@ class _FoodPageState extends State<FoodPage> {
   }
 
   void _checkTodayData() async {
-    setState(() {
-      _isLoading = true;  // Start loading
-    });
-    
-    final data = await MongoDatabase.getTodayDogData();
-    if (data.isNotEmpty && data['food'] == 'true') {
+    setState(() => _isLoading = true);  // Start loading
+
+    try {
+      final data = await MongoDatabase.getTodayDogData();
       setState(() {
-        _displayText = '!טאפי קיבלה מזון היום';
-        _foodGiven = true;  // Food has been given
         _isLoading = false;  // Stop loading
+        _foodGiven = data.isNotEmpty && data['food'] == 'true';
+        print('Food given status: $_foodGiven');
       });
-    } else {
+    } catch (e) {
+      print('Error fetching food data: $e');
       setState(() {
-        _displayText = 'האכלת את טאפי היום?';
-        _foodGiven = false;  // Food has not been given
-        _isLoading = false;  // Stop loading
+        _isLoading = false;
       });
     }
   }
 
   void _onFoodButtonPressed() async {
-    setState(() {
-      _isLoading = true;  // Start loading
-    });
-    
-    await MongoDatabase.updateFoodStatus(true);
-    setState(() {
-      _displayText = '!טאפי קיבלה מזון היום';
-      _foodGiven = true;
-      _isLoading = false;  // Stop loading
-    });
+    setState(() => _isLoading = true);  // Start loading
+
+    try {
+      await MongoDatabase.updateFoodStatus(true);
+      setState(() {
+        _foodGiven = true;
+        _isLoading = false;  // Stop loading
+      });
+    } catch (e) {
+      print('Error updating food status: $e');
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   void _onUndoFoodButtonPressed() async {
-    setState(() {
-      _isLoading = true;  // Start loading
-    });
+    setState(() => _isLoading = true);  // Start loading
 
-    await MongoDatabase.updateFoodStatus(false);
-    setState(() {
-      _displayText = '?האכלת את טאפי היום';
-      _foodGiven = false;
-      _isLoading = false;  // Stop loading
-    });
+    try {
+      await MongoDatabase.updateFoodStatus(false);
+      setState(() {
+        _foodGiven = false;
+        _isLoading = false;  // Stop loading
+      });
+    } catch (e) {
+      print('Error undoing food status: $e');
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   void _onItemTapped(int index) {
@@ -90,34 +94,34 @@ class _FoodPageState extends State<FoodPage> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: const CustomAppBar(isLoggedIn: true),
       backgroundColor: Colors.lightBlue,
       body: Center(
         child: _isLoading 
-            ? const CircularProgressIndicator()  // Show loading indicator while loading
+            ? const CircularProgressIndicator()
             : Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 20),
                   Text(
-                    _displayText,
+                    _foodGiven ? localizations!.foodGivenToday : localizations!.foodQuestion,
                     style: const TextStyle(color: Colors.black, fontSize: 30),
                   ),
                   const SizedBox(height: 20),
-                  if (!_foodGiven)  // Show this button only if food hasn't been given
+                  if (!_foodGiven)
                     FloatingActionButton(
                       backgroundColor: Colors.green,
                       onPressed: _onFoodButtonPressed,
                       child: const Icon(Icons.check),
                     ),
-                  if (_foodGiven)  // Show this button only if food has been given
+                  if (_foodGiven)
                     ElevatedButton(
                       onPressed: _onUndoFoodButtonPressed,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                      ),
-                      child: const Text('לא האכלתי אותה...לחצתי בטעות'),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      child: Text(localizations.undo),
                     ),
                 ],
               ),

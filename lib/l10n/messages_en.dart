@@ -26,11 +26,26 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
       'authenticationFailed': MessageLookupByLibrary.simpleMessage('Authentication Failed'),
+    'clear': MessageLookupByLibrary.simpleMessage('Clear'),
+    'clearSpecificTime': MessageLookupByLibrary.simpleMessage('Clear Specific Time'),
+    'foodGivenToday': MessageLookupByLibrary.simpleMessage('Tafi has been fed today!'),
+    'foodQuestion': MessageLookupByLibrary.simpleMessage('Did you feed Tafi today?'),
     'login': MessageLookupByLibrary.simpleMessage('Login'),
     'logout': MessageLookupByLibrary.simpleMessage('Logout'),
     'password': MessageLookupByLibrary.simpleMessage('Password'),
+    'snackQuestion': MessageLookupByLibrary.simpleMessage('No snacks given yet'),
+    'snackTimes': MessageLookupByLibrary.simpleMessage('Snacks given at:'),
+    'startSnackNow': MessageLookupByLibrary.simpleMessage('I gave Snack just Now'),
+    'startWalkNow': MessageLookupByLibrary.simpleMessage('Start Walk Now'),
     'title': MessageLookupByLibrary.simpleMessage('Tafi Care'),
+    'undo': MessageLookupByLibrary.simpleMessage('I didn\'t feed her... I pressed by mistake'),
     'username': MessageLookupByLibrary.simpleMessage('Username'),
+    'walkGivenToday': MessageLookupByLibrary.simpleMessage('Walk recorded for today!'),
+    'walkNotYetEvening': MessageLookupByLibrary.simpleMessage('No evening walk yet'),
+    'walkNotYetMorning': MessageLookupByLibrary.simpleMessage('No morning walk yet'),
+    'walkPeriodEvening': MessageLookupByLibrary.simpleMessage('Evening'),
+    'walkPeriodMorning': MessageLookupByLibrary.simpleMessage('Morning'),
+    'walkQuestion': MessageLookupByLibrary.simpleMessage('Did you walk Tafi today?'),
     'welcome': MessageLookupByLibrary.simpleMessage('Welcome to Tafi Care')
   };
 }

@@ -43,6 +43,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
         onPressed: () async {
           final prefs = await SharedPreferences.getInstance();
           await prefs.remove('isLoggedIn');
+          await prefs.setBool('isLoggedIn', false);
+          await prefs.remove('email');
+          await prefs.remove('password');
           // Use mounted check to prevent setState if widget is not in tree
           if (mounted) {
             Navigator.pushReplacementNamed(context, '/');
@@ -79,12 +82,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 
   void _changeLanguage(Locale newLocale) {
-    // Check if the widget is still part of the tree
     if (mounted) {
-      // Use Provider to set the locale across the app
       final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
       localeProvider.setLocale(newLocale);
       Navigator.pop(context); // Close the dialog after changing the language
-    }
   }
+}
 }

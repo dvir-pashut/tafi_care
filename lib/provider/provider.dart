@@ -1,17 +1,29 @@
-// locale_provider.dart
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 class LocaleProvider with ChangeNotifier {
-  Locale _locale = const Locale('he', 'IL'); // Default to Hebrew
+  Locale _locale = const Locale('he', 'IL'); // Default to Hebrew directly
+
+  LocaleProvider() {
+    loadLocale();
+  }
 
   Locale get locale => _locale;
 
-  void setLocale(Locale locale) {
-    print("Locale change requested to: ${locale.toString()}");
+  Future<void> loadLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? langCode = prefs.getString('language_code');
+    if (langCode != null) {
+      _locale = Locale(langCode);
+      notifyListeners();
+    }
+  }
+
+  Future<void> setLocale(Locale locale) async {
     if (_locale != locale) {
       _locale = locale;
-      print("Locale changed to: ${locale.toString()}");
       notifyListeners();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('language_code', locale.languageCode);
     }
   }
 }
