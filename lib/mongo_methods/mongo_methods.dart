@@ -1,10 +1,8 @@
-import 'package:mongo_dart/mongo_dart.dart';
-import 'package:intl/intl.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String mongoUriUsers = "mongodb://root:IIOvTEH6qmRzInkh@ac-rkih2hp-shard-00-00.xnwn2xw.mongodb.net:27017,ac-rkih2hp-shard-00-01.xnwn2xw.mongodb.net:27017,ac-rkih2hp-shard-00-02.xnwn2xw.mongodb.net:27017/Users?authSource=admin&compressors=disabled&gssapiServiceName=mongodb&replicaSet=atlas-stcn2i-shard-0&ssl=true";
-
-const String mongoUriDogStuff = "mongodb://root:IIOvTEH6qmRzInkh@ac-rkih2hp-shard-00-00.xnwn2xw.mongodb.net:27017,ac-rkih2hp-shard-00-01.xnwn2xw.mongodb.net:27017,ac-rkih2hp-shard-00-02.xnwn2xw.mongodb.net:27017/dog-is-fed?authSource=admin&compressors=disabled&gssapiServiceName=mongodb&replicaSet=atlas-stcn2i-shard-0&ssl=true";
+const String apiUrl = "https://ty87xd8q40.execute-api.il-central-1.amazonaws.com/prod/lambda";
 
 class MongoDatabase {
   static Future<bool> checkUserLoginStatus() async {
@@ -13,139 +11,133 @@ class MongoDatabase {
   }
 
   static Future<bool> authenticateUser(String email, String password) async {
-    try {
-      var db = await Db.create(mongoUriUsers);
-      await db.open();
-      print("Connected to users database");
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "action": "authenticateUser",
+        "email": email,
+        "password": password,
+      }),
+    );
 
-      final collection = db.collection('users');
-      final user = await collection.findOne(where.eq('email', email).eq('password', password));
-      await db.close();
-      print("User authentication ${user != null ? 'successful' : 'failed'}");
-      return user != null;
-    } catch (e) {
-      print('Error in authenticateUser: $e');
+    if (response.statusCode == 200) {
+      final body = jsonDecode(response.body);
+      return body['authenticated'];
+    } else {
+      print('Error in authenticateUser: ${response.body}');
       return false;
     }
   }
 
-  static Future<DbCollection> _getTodayCollection() async {
-    try {
-      var db = await Db.create(mongoUriDogStuff);
-      await db.open();
-      print("Connected to dog-is-fed database");
-
-      final today = DateFormat('dd-MM-yyyy').format(DateTime.now());
-      final collection = db.collection(today);
-
-      final exists = await collection.count() > 0;
-      if (!exists) {
-        await collection.insertOne({
-          "food": "",
-          "snack": [],
-          "walk": {"morning": "", "evening": ""}
-        });
-      }
-
-      print("Accessed today's collection: $today");
-      return collection;
-    } catch (e) {
-      print('Error in _getTodayCollection: $e');
-      rethrow;
-    }
-  }
-
   static Future<Map<String, dynamic>> getTodayDogData() async {
-    try {
-      final collection = await _getTodayCollection();
-      final data = await collection.findOne();
-      print("Today's data: $data");
-      return data ?? {};
-    } catch (e) {
-      print('Error in getTodayDogData: $e');
+    final response = await http.get(
+      Uri.parse('$apiUrl?action=getTodayDogData'),
+      headers: {"Content-Type": "application/json"},
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      print('Error in getTodayDogData: ${response.body}');
       return {};
     }
   }
 
   static Future<void> updateFoodStatus(bool status) async {
-    try {
-      final collection = await _getTodayCollection();
-      await collection.updateOne(
-        where.exists('food'),
-        modify.set('food', status ? 'true' : 'false'),
-      );
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "action": "updateFoodStatus",
+        "status": status,
+      }),
+    );
+
+    if (response.statusCode == 200) {
       print("Updated food status to ${status ? 'true' : 'false'}");
-    } catch (e) {
-      print('Error in updateFoodStatus: $e');
+    } else {
+      print('Error in updateFoodStatus: ${response.body}');
     }
   }
 
   static Future<List<String>> getTodaySnackData() async {
-    try {
-      final collection = await _getTodayCollection();
-      final data = await collection.findOne();
-      print("Today's snack data: ${data?['snack']}");
-      return data?['snack'].cast<String>() ?? [];
-    } catch (e) {
-      print('Error in getTodaySnackData: $e');
+    final response = await http.get(
+      Uri.parse('$apiUrl?action=getTodaySnackData'),
+      headers: {"Content-Type": "application/json"},
+    );
+
+    if (response.statusCode == 200) {
+      return List<String>.from(jsonDecode(response.body));
+    } else {
+      print('Error in getTodaySnackData: ${response.body}');
       return [];
     }
   }
 
   static Future<void> addSnack(String time) async {
-    try {
-      final collection = await _getTodayCollection();
-      await collection.updateOne(
-        where.exists('snack'),
-        modify.push('snack', time),
-      );
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "action": "addSnack",
+        "time": time,
+      }),
+    );
+
+    if (response.statusCode == 200) {
       print("Added snack time: $time");
-    } catch (e) {
-      print('Error in addSnack: $e');
+    } else {
+      print('Error in addSnack: ${response.body}');
     }
   }
 
   static Future<void> deleteSnack(String time) async {
-    try {
-      final collection = await _getTodayCollection();
-      await collection.updateOne(
-        where.exists('snack'),
-        modify.pull('snack', time),
-      );
+    final response = await http.delete(
+      Uri.parse(apiUrl),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "action": "deleteSnack",
+        "time": time,
+      }),
+    );
+
+    if (response.statusCode == 200) {
       print("Deleted snack time: $time");
-    } catch (e) {
-      print('Error in deleteSnack: $e');
+    } else {
+      print('Error in deleteSnack: ${response.body}');
     }
   }
 
   static Future<Map<String, dynamic>> getWalkTimes() async {
-    try {
-      var db = await Db.create(mongoUriDogStuff);
-      await db.open();
-      var collection = db.collection(DateFormat('dd-MM-yyyy').format(DateTime.now()));
-      var data = await collection.findOne();
-      print("Today's walk times: ${data?['walk']}");
-      await db.close();
-      return data?['walk'] ?? {"morning": "", "evening": ""};
-    } catch (e) {
-      print('Error in getWalkTimes: $e');
+    final response = await http.get(
+      Uri.parse('$apiUrl?action=getWalkTimes'),
+      headers: {"Content-Type": "application/json"},
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      print('Error in getWalkTimes: ${response.body}');
       return {"morning": "", "evening": ""};
     }
   }
 
   static Future<void> updateWalkTime(String period, String? time) async {
-    try {
-      var db = await Db.create(mongoUriDogStuff);
-      await db.open();
-      var collection = db.collection(DateFormat('dd-MM-yyyy').format(DateTime.now()));
-      await collection.updateOne(
-        where.exists('walk'),
-        modify.set('walk.$period', time ?? "")
-      );
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "action": "updateWalkTime",
+        "period": period,
+        "time": time,
+      }),
+    );
+
+    if (response.statusCode == 200) {
       print("Updated $period walk time to $time");
-      await db.close();
-    } catch (e) {
-      print('Error in updateWalkTime: $e');
+    } else {
+      print('Error in updateWalkTime: ${response.body}');
     }
   }
 }
