@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io' as io;
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/foundation.dart';
 
 const String apiUrlCloudfront = "https://d1cqlij8972v6p.cloudfront.net/prod/lambda";
 const String apiUrlNoCache = "https://ty87xd8q40.execute-api.il-central-1.amazonaws.com/prod/lambda";
@@ -11,44 +11,69 @@ const String apiUrlNoCache = "https://ty87xd8q40.execute-api.il-central-1.amazon
 String currentApiUrl = apiUrlCloudfront;
 
 class MongoDatabase {
-  static HttpClient get _httpClient {
-    HttpClient client = HttpClient();
+  static Future<http.Response> _get(Uri url) async {
+    if (kIsWeb) {
+      return await http.get(url);
+    } else {
+      return await _getMobile(url);
+    }
+  }
+
+  static Future<http.Response> _post(Uri url, Map<String, dynamic> body) async {
+    if (kIsWeb) {
+      return await http.post(url, headers: {"Content-Type": "application/json"}, body: jsonEncode(body));
+    } else {
+      return await _postMobile(url, body);
+    }
+  }
+
+  static Future<http.Response> _delete(Uri url, Map<String, dynamic> body) async {
+    if (kIsWeb) {
+      return await http.delete(url, headers: {"Content-Type": "application/json"}, body: jsonEncode(body));
+    } else {
+      return await _deleteMobile(url, body);
+    }
+  }
+
+  static Future<http.Response> _getMobile(Uri url) async {
+    io.HttpClient client = _httpClient;
+    io.HttpClientRequest request = await client.getUrl(url);
+    io.HttpClientResponse response = await request.close();
+    String responseBody = await response.transform(utf8.decoder).join();
+    return http.Response(responseBody, response.statusCode);
+  }
+
+  static Future<http.Response> _postMobile(Uri url, Map<String, dynamic> body) async {
+    io.HttpClient client = _httpClient;
+    io.HttpClientRequest request = await client.postUrl(url);
+    request.headers.set(io.HttpHeaders.contentTypeHeader, "application/json");
+    request.add(utf8.encode(jsonEncode(body)));
+    io.HttpClientResponse response = await request.close();
+    String responseBody = await response.transform(utf8.decoder).join();
+    return http.Response(responseBody, response.statusCode);
+  }
+
+  static Future<http.Response> _deleteMobile(Uri url, Map<String, dynamic> body) async {
+    io.HttpClient client = _httpClient;
+    io.HttpClientRequest request = await client.deleteUrl(url);
+    request.headers.set(io.HttpHeaders.contentTypeHeader, "application/json");
+    request.add(utf8.encode(jsonEncode(body)));
+    io.HttpClientResponse response = await request.close();
+    String responseBody = await response.transform(utf8.decoder).join();
+    return http.Response(responseBody, response.statusCode);
+  }
+
+  static io.HttpClient get _httpClient {
+    io.HttpClient client = io.HttpClient();
     if (kDebugMode) {
-      // Allow self-signed certificates in debug mode
-      client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      client.badCertificateCallback = (io.X509Certificate cert, String host, int port) => true;
     }
     return client;
   }
 
-  static Future<http.Response> _get(Uri url) async {
-    HttpClientRequest request = await _httpClient.getUrl(url);
-    HttpClientResponse response = await request.close();
-    String responseBody = await response.transform(utf8.decoder).join();
-    return http.Response(responseBody, response.statusCode);
-  }
-
-  static Future<http.Response> _post(Uri url, Map<String, dynamic> body) async {
-    HttpClientRequest request = await _httpClient.postUrl(url);
-    request.headers.set(HttpHeaders.contentTypeHeader, "application/json");
-    request.add(utf8.encode(jsonEncode(body)));
-    HttpClientResponse response = await request.close();
-    String responseBody = await response.transform(utf8.decoder).join();
-    return http.Response(responseBody, response.statusCode);
-  }
-
-  static Future<http.Response> _delete(Uri url, Map<String, dynamic> body) async {
-    HttpClientRequest request = await _httpClient.deleteUrl(url);
-    request.headers.set(HttpHeaders.contentTypeHeader, "application/json");
-    request.add(utf8.encode(jsonEncode(body)));
-    HttpClientResponse response = await request.close();
-    String responseBody = await response.transform(utf8.decoder).join();
-    return http.Response(responseBody, response.statusCode);
-  }
-
   static Future<void> switchToNoCacheUrlTemporarily() async {
     currentApiUrl = apiUrlNoCache;
-    // Switch back to CloudFront URL after 5 seconds
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(Duration(seconds: 5));
     currentApiUrl = apiUrlCloudfront;
   }
 

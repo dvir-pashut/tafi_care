@@ -43,25 +43,25 @@ jobs:
           name: android-app
           path: build/app/outputs/flutter-apk/app-release.apk  
 
-  # web:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Install Flutter SDK
-  #       uses: mobiledevops/flutter-sdk-action@v1.0.0
-  #       with:
-  #         flutter-sdk-version: 3.22.2 
-  #     - run: flutter --version
-  #     - run: flutter doctor
-  #     - run: flutter pub get
-  #     - run: flutter build web --release
-  #     - name: Deploy to GitHub Pages
-  #       uses: peaceiris/actions-gh-pages@v3
-  #       with:
-  #         github_token: ${{ secrets.GITHUB_TOKEN }}
-  #         publish_dir: build/web
-  #     - name: Upload build as artifact
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: webb-app
-  #         path:  build/web  
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Flutter SDK
+        uses: mobiledevops/flutter-sdk-action@v1.0.0
+        with:
+          flutter-sdk-version: 3.22.2 
+      - run: flutter --version
+      - run: flutter doctor
+      - run: flutter pub get
+      - run: flutter build web --release
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/web
+      - name: Upload build as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: webb-app
+          path:  build/web  
