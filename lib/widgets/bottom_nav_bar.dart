@@ -19,15 +19,15 @@ class CustomBottomNavBar extends StatelessWidget {
     return BottomNavigationBar(
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.food_bank),
+          icon: const Icon(Icons.food_bank),
           label: labels.foodLabel, // Localized label
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.cake),
+          icon: const Icon(Icons.cake),
           label: labels.snacksLabel, // Localized label
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.directions_run),
+          icon: const Icon(Icons.directions_run),
           label: labels.walksLabel, // Localized label
         ),
       ],

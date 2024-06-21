@@ -38,7 +38,7 @@ class _WalkPageState extends State<WalkPage> {
 
   void clearWalkTime(String period) async {
     setState(() => isLoading = true);
-    await MongoDatabase.updateWalkTime(period, null);
+    await MongoDatabase.updateWalkTime(period, "");
     fetchWalkTimes();
   }
 
