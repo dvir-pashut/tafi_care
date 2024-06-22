@@ -5,54 +5,53 @@ import '../mongo_methods/mongo_methods.dart';
 import '../l10n/localizations.dart'; // Ensure this is correctly imported
 import 'package:intl/intl.dart';
 
-class SnackPage extends StatefulWidget {
-  const SnackPage({super.key});
+class PupuPage extends StatefulWidget {
+  const PupuPage({super.key});
 
   @override
-  _SnackPageState createState() => _SnackPageState();
+  _PupuPageState createState() => _PupuPageState();
 }
 
-class _SnackPageState extends State<SnackPage> {
-// 'Snack' is the second item
-  List<Map<String, dynamic>> snackTimes = [];
+class _PupuPageState extends State<PupuPage> {
+// 'Pupu' is the fourth item
+  List<Map<String, dynamic>> pupuTimes = [];
   bool isLoading = true;
   bool showDeleteOptions = false;
 
   @override
   void initState() {
     super.initState();
-    _fetchSnackData();
+    _fetchPupuData();
   }
 
-  Future<void> _fetchSnackData() async {
+  Future<void> _fetchPupuData() async {
     setState(() => isLoading = true);
-    var snacks = await MongoDatabase.getTodaySnackData();
+    var pupus = await MongoDatabase.getTodayPupuData();
     setState(() {
-      snackTimes = snacks.toSet().cast<Map<String, dynamic>>().toList(); // Remove duplicates
+      pupuTimes = pupus.toSet().cast<Map<String, dynamic>>().toList(); // Remove duplicates
       isLoading = false; // Stop loading
       showDeleteOptions = false; // Reset delete options visibility
     });
   }
 
-  void _addSnack() async {
+  void _addPupu() async {
     final prefs = await SharedPreferences.getInstance();
     final String? email = prefs.getString('email');
     setState(() => isLoading = true);
     final now = DateTime.now();
     String formattedTime = DateFormat('HH:mm').format(now);
-    await MongoDatabase.addSnack(formattedTime, email!);
-    _fetchSnackData(); // Refresh the snack list
+    await MongoDatabase.addPupu(formattedTime, email!);
+    _fetchPupuData(); // Refresh the pupu list
   }
 
   void _toggleDeleteOptions() {
     setState(() => showDeleteOptions = !showDeleteOptions);
   }
 
-  void _deleteSnack(String time, String updater) async {
+  void _deletePupu(String time, String updater) async {
     setState(() => isLoading = true);
-    await MongoDatabase.deleteSnack(time, updater);
-    _fetchSnackData();
-    _fetchSnackData(); // Refresh the snack list after deletion
+    await MongoDatabase.deletePupu(time, updater);
+    _fetchPupuData(); // Refresh the pupu list after deletion
   }
 
   void _onItemTapped(int index) {
@@ -61,13 +60,13 @@ class _SnackPageState extends State<SnackPage> {
       case 0:  // Navigate to Food Page
         Navigator.pushReplacementNamed(context, '/main');
         break;
-      case 1:  // Already on Snack Page
+      case 1:  // Navigate to Snack Page
+        Navigator.pushReplacementNamed(context, '/snack');
         break;
       case 2:  // Navigate to Walk Page
         Navigator.pushReplacementNamed(context, '/walk');
         break;
-      case 3:  // Navigate to Pupu Page
-        Navigator.pushReplacementNamed(context, '/pupu');
+      case 3:  // Already on Pupu Page
         break;
     }
   }
@@ -83,20 +82,20 @@ class _SnackPageState extends State<SnackPage> {
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                snackTimes.isEmpty
+                pupuTimes.isEmpty
                   ? Text(
-                      localizations!.snackQuestion,
+                      localizations!.pupuQuestion,
                       style: const TextStyle(color: Colors.black, fontSize: 24),
                     )
                   : Text(
-                      '${localizations!.snackTimes} ${snackTimes.map((snack) => snack["time"] + " " + localizations.by + " " + snack['updater']).join(', ') }',
+                      '${localizations!.pupuTimes} ${pupuTimes.map((pupu) => pupu["time"] + " " + localizations.by + " " + pupu['updater']).join(', ') }',
                       style: const TextStyle(color: Colors.black, fontSize: 24),
                     ),
                 ElevatedButton(
-                  onPressed: _addSnack,
-                  child: Text(localizations.startSnackNow),
+                  onPressed: _addPupu,
+                  child: Text(localizations.startPupuNow),
                 ),
-                if (snackTimes.isNotEmpty)
+                if (pupuTimes.isNotEmpty)
                   ElevatedButton(
                     onPressed: _toggleDeleteOptions,
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
@@ -105,11 +104,11 @@ class _SnackPageState extends State<SnackPage> {
                 if (showDeleteOptions)
                   Wrap(
                     spacing: 10,
-                    children: snackTimes
-                        .map((snack) => ElevatedButton(
-                              onPressed: () => _deleteSnack(snack["time"], snack["updater"]),
+                    children: pupuTimes
+                        .map((pupu) => ElevatedButton(
+                              onPressed: () => _deletePupu(pupu["time"], pupu["updater"]),
                               style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
-                              child: Text(snack["time"]),
+                              child: Text(pupu["time"]),
                             ))
                         .toList(),
                   )

@@ -7,6 +7,9 @@ import 'pages/start_page.dart';
 import 'pages/food_page.dart';
 import 'pages/snack_page.dart';
 import 'pages/walk_page.dart';
+import 'pages/pupu_page.dart';
+import 'widgets/bottom_nav_bar.dart';  // Add this import
+import 'widgets/app_bar.dart';  // Add this import
 
 void main() async {
   runApp(const MyApp());
@@ -49,12 +52,66 @@ class MyApp extends StatelessWidget {
             initialRoute: '/',
             routes: {
               '/': (context) => const StartPage(),
-              '/main': (context) => const FoodPage(),
-              '/snack': (context) => const SnackPage(),
-              '/walk': (context) => const WalkPage(),
+              '/main': (context) => const MainScreen(),
             },
           );
         },
+      ),
+    );
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  final PageController _pageController = PageController();
+  int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController.addListener(() {
+      setState(() {
+        _selectedIndex = _pageController.page?.round() ?? 0;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _onItemTapped(int index) {
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const CustomAppBar(isLoggedIn: true),
+      body: PageView(
+        controller: _pageController,
+        children: const [
+          FoodPage(),
+          SnackPage(),
+          WalkPage(),
+          PupuPage(),
+        ],
+      ),
+      bottomNavigationBar: CustomBottomNavBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
       ),
     );
   }

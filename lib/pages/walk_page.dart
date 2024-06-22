@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/app_bar.dart';
+// ignore: unused_import
 import '../widgets/bottom_nav_bar.dart';
 import '../mongo_methods/mongo_methods.dart';
 import '../l10n/localizations.dart'; // Ensure this is correctly imported
@@ -13,8 +15,8 @@ class WalkPage extends StatefulWidget {
 }
 
 class _WalkPageState extends State<WalkPage> {
-  int _selectedIndex = 2;  // 'Walk' is the third item
-  Map<String, dynamic> walkTimes = {"morning": "", "evening": ""};
+// 'Walk' is the third item
+  Map<String, dynamic> walkTimes = {"morning": {"time": "", "updater": ""}, "evening": {"time": "", "updater": ""}};
   bool isLoading = true;
 
   @override
@@ -30,21 +32,22 @@ class _WalkPageState extends State<WalkPage> {
   }
 
   void updateWalkTime(String period) async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('email');
     setState(() => isLoading = true);
     String time = DateFormat('HH:mm').format(DateTime.now());
-    await MongoDatabase.updateWalkTime(period, time);
+    await MongoDatabase.updateWalkTime(period, time, email!);
     fetchWalkTimes();
   }
 
   void clearWalkTime(String period) async {
     setState(() => isLoading = true);
-    await MongoDatabase.updateWalkTime(period, "");
+    await MongoDatabase.updateWalkTime(period, "", "");
     fetchWalkTimes();
   }
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
     });
 
     switch (index) {
@@ -56,6 +59,9 @@ class _WalkPageState extends State<WalkPage> {
         break;
       case 2:
         break;  // Already on Walk Page
+      case 3:  // Navigate to Pupu Page
+        Navigator.pushReplacementNamed(context, '/pupu');
+        break;
     }
   }
 
@@ -64,7 +70,6 @@ class _WalkPageState extends State<WalkPage> {
     final localizations = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: const CustomAppBar(isLoggedIn: true),
       backgroundColor: Colors.lightBlue,
       body: Center(
         child: isLoading
@@ -77,22 +82,21 @@ class _WalkPageState extends State<WalkPage> {
               ],
             ),
       ),
-      bottomNavigationBar: CustomBottomNavBar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
-      ),
+
     );
   }
 
   Widget buildWalkPeriodUI(String period, AppLocalizations? localizations) {
-    String time = walkTimes[period];
+    Map<String, dynamic> periodData = walkTimes[period];
+    String time = periodData["time"];
+    String updater = periodData['updater'];
     bool hasTime = time.isNotEmpty;
   
     return Column(
       children: [
         Text(
           hasTime 
-            ? '${period == "morning" ? localizations!.walkPeriodMorning : localizations!.walkPeriodEvening}: $time' 
+            ? '${period == "morning" ? localizations!.walkPeriodMorning : localizations!.walkPeriodEvening}: $time ${localizations.by} $updater ' 
             : (period == "morning" ? localizations!.walkNotYetMorning : localizations!.walkNotYetEvening),
           style: const TextStyle(color: Colors.black, fontSize: 24),
         ),
@@ -100,11 +104,11 @@ class _WalkPageState extends State<WalkPage> {
           ? ElevatedButton(
               onPressed: () => clearWalkTime(period),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
-              child: Text(localizations!.clear),
+              child: Text(localizations.clear),
             )
           : ElevatedButton(
               onPressed: () => updateWalkTime(period),
-              child: Text(localizations!.startWalkNow),
+              child: Text(localizations.startWalkNow),
             ),
       ],
     );

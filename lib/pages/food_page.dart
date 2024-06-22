@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/app_bar.dart';
-import '../widgets/bottom_nav_bar.dart';
 import '../mongo_methods/mongo_methods.dart';
 import '../l10n/localizations.dart'; 
 
@@ -14,7 +14,6 @@ class FoodPage extends StatefulWidget {
 class _FoodPageState extends State<FoodPage> {
   bool _foodGiven = false;
   bool _isLoading = true;
-  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -29,8 +28,9 @@ class _FoodPageState extends State<FoodPage> {
       final data = await MongoDatabase.getTodayDogData();
       setState(() {
         _isLoading = false;  // Stop loading
-        _foodGiven = data.isNotEmpty && data['food'] == 'true';
-        print('Food given status: $_foodGiven');
+        _foodGiven = data.isNotEmpty && data['food']['status'] == 'true';
+        var updater = data.isEmpty && data['food']['updater'];
+        print('Food given status: $_foodGiven Updater: $updater');
       });
     } catch (e) {
       print('Error fetching food data: $e');
@@ -41,10 +41,12 @@ class _FoodPageState extends State<FoodPage> {
   }
 
   void _onFoodButtonPressed() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('email');
     setState(() => _isLoading = true);  // Start loading
 
     try {
-      await MongoDatabase.updateFoodStatus(true);
+      await MongoDatabase.updateFoodStatus(true, email!);
       setState(() {
         _foodGiven = true;
         _isLoading = false;  // Stop loading
@@ -61,7 +63,7 @@ class _FoodPageState extends State<FoodPage> {
     setState(() => _isLoading = true);  // Start loading
 
     try {
-      await MongoDatabase.updateFoodStatus(false);
+      await MongoDatabase.updateFoodStatus(false, "");
       setState(() {
         _foodGiven = false;
         _isLoading = false;  // Stop loading
@@ -76,7 +78,6 @@ class _FoodPageState extends State<FoodPage> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
     });
 
     switch (index) {
@@ -89,6 +90,9 @@ class _FoodPageState extends State<FoodPage> {
       case 2:  // Navigate to Walk Page
         Navigator.pushReplacementNamed(context, '/walk');
         break;
+      case 3:  // Navigate to Pupu Page
+        Navigator.pushReplacementNamed(context, '/pupu');
+        break;
     }
   }
 
@@ -97,7 +101,6 @@ class _FoodPageState extends State<FoodPage> {
     final localizations = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: const CustomAppBar(isLoggedIn: true),
       backgroundColor: Colors.lightBlue,
       body: Center(
         child: _isLoading 
@@ -125,10 +128,6 @@ class _FoodPageState extends State<FoodPage> {
                     ),
                 ],
               ),
-      ),
-      bottomNavigationBar: CustomBottomNavBar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
       ),
     );
   }

@@ -23,5 +23,9 @@
   "clearSpecificTime": "清除特定时间",
   "foodLabel": "食品",
   "snacksLabel": "小吃",
-  "walksLabel": "散步"
+  "walksLabel": "散步",
+  "pupuQuestion": "今天没有收集到便便",
+  "pupuTimes": "便便收集时间:",
+  "startPupuNow": "我刚刚收集了便便！",
+  "by": "by"
 }

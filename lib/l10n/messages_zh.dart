@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
       'authenticationFailed': MessageLookupByLibrary.simpleMessage('认证失败'),
+    'by': MessageLookupByLibrary.simpleMessage('by'),
     'clear': MessageLookupByLibrary.simpleMessage('清除'),
     'clearSpecificTime': MessageLookupByLibrary.simpleMessage('清除特定时间'),
     'foodGivenToday': MessageLookupByLibrary.simpleMessage('塔菲今天已经被喂食了！'),
@@ -34,9 +35,12 @@ class MessageLookup extends MessageLookupByLibrary {
     'login': MessageLookupByLibrary.simpleMessage('登录'),
     'logout': MessageLookupByLibrary.simpleMessage('退出登录'),
     'password': MessageLookupByLibrary.simpleMessage('密码'),
+    'pupuQuestion': MessageLookupByLibrary.simpleMessage('今天没有收集到便便'),
+    'pupuTimes': MessageLookupByLibrary.simpleMessage('便便收集时间:'),
     'snackQuestion': MessageLookupByLibrary.simpleMessage('还没有给零食'),
     'snackTimes': MessageLookupByLibrary.simpleMessage('给零食的时间：'),
     'snacksLabel': MessageLookupByLibrary.simpleMessage('小吃'),
+    'startPupuNow': MessageLookupByLibrary.simpleMessage('我刚刚收集了便便！'),
     'startSnackNow': MessageLookupByLibrary.simpleMessage('我刚刚给了零食'),
     'startWalkNow': MessageLookupByLibrary.simpleMessage('现在开始遛'),
     'title': MessageLookupByLibrary.simpleMessage('塔菲护理'),

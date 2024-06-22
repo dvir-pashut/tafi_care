@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
       'authenticationFailed': MessageLookupByLibrary.simpleMessage('Authentication Failed'),
+    'by': MessageLookupByLibrary.simpleMessage('by'),
     'clear': MessageLookupByLibrary.simpleMessage('Clear'),
     'clearSpecificTime': MessageLookupByLibrary.simpleMessage('Clear Specific Time'),
     'foodGivenToday': MessageLookupByLibrary.simpleMessage('Tafi has been fed today!'),
@@ -34,9 +35,12 @@ class MessageLookup extends MessageLookupByLibrary {
     'login': MessageLookupByLibrary.simpleMessage('Login'),
     'logout': MessageLookupByLibrary.simpleMessage('Logout'),
     'password': MessageLookupByLibrary.simpleMessage('Password'),
+    'pupuQuestion': MessageLookupByLibrary.simpleMessage('no pupu was collected today'),
+    'pupuTimes': MessageLookupByLibrary.simpleMessage('pupu was collected at:'),
     'snackQuestion': MessageLookupByLibrary.simpleMessage('No snacks given yet'),
     'snackTimes': MessageLookupByLibrary.simpleMessage('Snacks given at:'),
     'snacksLabel': MessageLookupByLibrary.simpleMessage('Snacks'),
+    'startPupuNow': MessageLookupByLibrary.simpleMessage('i just collected pupu!!!!'),
     'startSnackNow': MessageLookupByLibrary.simpleMessage('I gave Snack just Now'),
     'startWalkNow': MessageLookupByLibrary.simpleMessage('Start Walk Now'),
     'title': MessageLookupByLibrary.simpleMessage('Tafi Care'),

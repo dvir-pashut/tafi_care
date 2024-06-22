@@ -100,6 +100,7 @@ class MongoDatabase {
 
   static Future<Map<String, dynamic>> getTodayDogData() async {
     final response = await _get(Uri.parse('$currentApiUrl?action=getTodayDogData'));
+    print(response.body);
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
@@ -109,12 +110,13 @@ class MongoDatabase {
     }
   }
 
-  static Future<void> updateFoodStatus(bool status) async {
+  static Future<void> updateFoodStatus(bool status, String email ) async {
     final response = await _post(Uri.parse(currentApiUrl), {
       "action": "updateFoodStatus",
       "status": status,
+      "username": email,
     });
-
+    print("updating food status to $status with email $email");
     if (response.statusCode == 200) {
       print("Updated food status to ${status ? 'true' : 'false'}");
       await switchToNoCacheUrlTemporarily();
@@ -123,21 +125,23 @@ class MongoDatabase {
     }
   }
 
-  static Future<List<String>> getTodaySnackData() async {
+  static Future<List<Map<String, dynamic>>> getTodaySnackData() async {
     final response = await _get(Uri.parse('$currentApiUrl?action=getTodaySnackData'));
+    print(response.body);
 
     if (response.statusCode == 200) {
-      return List<String>.from(jsonDecode(response.body));
+      return List<Map<String, dynamic>>.from(jsonDecode(response.body));
     } else {
       print('Error in getTodaySnackData: ${response.body}');
       return [];
     }
   }
 
-  static Future<void> addSnack(String time) async {
+  static Future<void> addSnack(String time, String email) async {
     final response = await _post(Uri.parse(currentApiUrl), {
       "action": "addSnack",
       "time": time,
+      "username": email
     });
 
     if (response.statusCode == 200) {
@@ -148,36 +152,40 @@ class MongoDatabase {
     }
   }
 
-  static Future<void> deleteSnack(String time) async {
+  static Future<void> deleteSnack(String time, String email) async {
     final response = await _delete(Uri.parse(currentApiUrl), {
       "action": "deleteSnack",
       "time": time,
+      "username": email
     });
 
     if (response.statusCode == 200) {
       print("Deleted snack time: $time");
-      await switchToNoCacheUrlTemporarily();
     } else {
       print('Error in deleteSnack: ${response.body}');
     }
   }
 
   static Future<Map<String, dynamic>> getWalkTimes() async {
-    final response = await _get(Uri.parse('$currentApiUrl?action=getWalkTimes'));
-
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    } else {
-      print('Error in getWalkTimes: ${response.body}');
-      return {"morning": "", "evening": ""};
-    }
+  final response = await _get(Uri.parse('$currentApiUrl?action=getWalkTimes'));
+  print(response.body);
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body);
+  } else {
+    print('Error in getWalkTimes: ${response.body}');
+    return {"morning": {"time": "", "updater": ""}, "evening": {"time": "", "updater": ""}};
+  }
   }
 
-  static Future<void> updateWalkTime(String period, String? time) async {
+  static Future<void> updateWalkTime(String period, String? time, String email) async {
+    print(period);
+    print(time);
+    print(email);
     final response = await _post(Uri.parse(currentApiUrl), {
       "action": "updateWalkTime",
       "period": period,
       "time": time,
+      "username": email
     });
 
     if (response.statusCode == 200) {
@@ -185,6 +193,47 @@ class MongoDatabase {
       await switchToNoCacheUrlTemporarily();
     } else {
       print('Error in updateWalkTime: ${response.body}');
+    }
+    }
+
+
+    static Future<List<Map<String, dynamic>>> getTodayPupuData() async {
+    final response = await _get(Uri.parse('$currentApiUrl?action=getTodayPupuData'));
+
+    if (response.statusCode == 200) {
+      return List<Map<String, dynamic>>.from(jsonDecode(response.body));
+    } else {
+      print('Error in getTodayPupuData: ${response.body}');
+      return [];
+    }
+  }
+
+  static Future<void> addPupu(String time, String email) async {
+    final response = await _post(Uri.parse(currentApiUrl), {
+      "action": "addPupu",
+      "time": time,
+      "username": email
+    });
+
+    if (response.statusCode == 200) {
+      print("Added pupu time: $time");
+      await switchToNoCacheUrlTemporarily();
+    } else {
+      print('Error in addPupu: ${response.body}');
+    }
+  }
+
+  static Future<void> deletePupu(String time, String email) async {
+    final response = await _delete(Uri.parse(currentApiUrl), {
+      "action": "deletePupu",
+      "time": time,
+      "username": email,
+    });
+
+    if (response.statusCode == 200) {
+      print("Deleted pupu time: $time");
+    } else {
+      print('Error in deletePupu: ${response.body}');
     }
   }
 }

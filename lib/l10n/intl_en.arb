@@ -25,5 +25,9 @@
   "clearSpecificTime":"Clear Specific Time",
   "foodLabel": "Food",
   "snacksLabel": "Snacks",
-  "walksLabel": "Walks"
+  "walksLabel": "Walks",
+  "pupuQuestion": "no pupu was collected today",
+  "pupuTimes": "pupu was collected at:",
+  "startPupuNow": "i just collected pupu!!!!",
+  "by": "by"
 }

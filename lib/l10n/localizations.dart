@@ -54,6 +54,16 @@ class AppLocalizations {
   String get foodLabel => Intl.message('Food', name: 'foodLabel');
   String get snacksLabel => Intl.message('Snacks', name: 'snacksLabel');
   String get walksLabel => Intl.message('Walks', name: 'walksLabel');
+  String get pupuLabel => Intl.message('pupu', name: 'pupuLabel');
+  
+  // pupu
+  String get pupuQuestion => Intl.message('no pupu was collected today', name: 'pupuQuestion');
+  String get pupuTimes => Intl.message('pupu was collected at:', name: 'pupuTimes');
+  String get startPupuNow => Intl.message('i just collected pupu', name: 'startPupuNow');
+
+  //general
+  String get by => Intl.message('by', name: 'by');
+
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

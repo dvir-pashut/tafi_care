@@ -25,5 +25,9 @@
   "clearSpecificTime":"מחק זמן ספציפי",
   "foodLabel": "מזון",
   "snacksLabel": "חטיפים",
-  "walksLabel": "טיולים"
+  "walksLabel": "טיולים",
+  "pupuQuestion": "לא נאסף קקי היום",
+  "pupuTimes": "קקי נאסף ב:",
+  "startPupuNow": "אספתי קקי עכשיו!!!!!!",
+  "by": "ע״י"
 }

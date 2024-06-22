@@ -10,13 +10,13 @@ class CustomBottomNavBar extends StatelessWidget {
     required this.selectedIndex,
     required this.onItemTapped,
   });
-  
 
   @override
   Widget build(BuildContext context) {
     final labels = AppLocalizations.of(context)!; // Get localization instance
 
     return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed, // Ensures labels are always visible
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: const Icon(Icons.food_bank),
@@ -30,9 +30,16 @@ class CustomBottomNavBar extends StatelessWidget {
           icon: const Icon(Icons.directions_run),
           label: labels.walksLabel, // Localized label
         ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.pets),
+          label: labels.pupuLabel, // Localized label for pupu
+        ),
       ],
       currentIndex: selectedIndex,
+      selectedItemColor: Colors.green[700], // Color for selected item
+      unselectedItemColor: Colors.black, // Color for unselected items
       onTap: onItemTapped,
+      backgroundColor: Colors.lightBlue,
     );
   }
 }
