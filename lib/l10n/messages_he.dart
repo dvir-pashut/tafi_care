@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'login': MessageLookupByLibrary.simpleMessage('התחברות'),
     'logout': MessageLookupByLibrary.simpleMessage('התנתק'),
     'password': MessageLookupByLibrary.simpleMessage('סיסמא'),
+    'pupuLabel': MessageLookupByLibrary.simpleMessage('קקי'),
     'pupuQuestion': MessageLookupByLibrary.simpleMessage('לא נאסף קקי היום'),
     'pupuTimes': MessageLookupByLibrary.simpleMessage('קקי נאסף ב:'),
     'snackQuestion': MessageLookupByLibrary.simpleMessage('עדיין לא קיבלה חטיפים'),

@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'login': MessageLookupByLibrary.simpleMessage('登录'),
     'logout': MessageLookupByLibrary.simpleMessage('退出登录'),
     'password': MessageLookupByLibrary.simpleMessage('密码'),
+    'pupuLabel': MessageLookupByLibrary.simpleMessage('普普'),
     'pupuQuestion': MessageLookupByLibrary.simpleMessage('今天没有收集到便便'),
     'pupuTimes': MessageLookupByLibrary.simpleMessage('便便收集时间:'),
     'snackQuestion': MessageLookupByLibrary.simpleMessage('还没有给零食'),

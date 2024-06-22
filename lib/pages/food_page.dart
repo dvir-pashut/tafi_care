@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../widgets/app_bar.dart';
 import '../mongo_methods/mongo_methods.dart';
 import '../l10n/localizations.dart'; 
 
@@ -14,6 +13,7 @@ class FoodPage extends StatefulWidget {
 class _FoodPageState extends State<FoodPage> {
   bool _foodGiven = false;
   bool _isLoading = true;
+  String _updater = "";
 
   @override
   void initState() {
@@ -29,8 +29,8 @@ class _FoodPageState extends State<FoodPage> {
       setState(() {
         _isLoading = false;  // Stop loading
         _foodGiven = data.isNotEmpty && data['food']['status'] == 'true';
-        var updater = data.isEmpty && data['food']['updater'];
-        print('Food given status: $_foodGiven Updater: $updater');
+        _updater = data['food']['updater'];
+        print('Food given status: $_foodGiven Updater: $_updater');
       });
     } catch (e) {
       print('Error fetching food data: $e');
@@ -109,8 +109,13 @@ class _FoodPageState extends State<FoodPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 20),
-                  Text(
-                    _foodGiven ? localizations!.foodGivenToday : localizations!.foodQuestion,
+                  _foodGiven 
+                  ? Text(
+                    '${localizations!.foodGivenToday}  ${localizations.by} $_updater',
+                    style: const TextStyle(color: Colors.black, fontSize: 30),
+                  )
+                  : Text(
+                    localizations!.foodQuestion,
                     style: const TextStyle(color: Colors.black, fontSize: 30),
                   ),
                   const SizedBox(height: 20),

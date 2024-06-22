@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../widgets/app_bar.dart';
 import '../mongo_methods/mongo_methods.dart';
 import '../l10n/localizations.dart'; // Ensure this is correctly imported
 import 'package:intl/intl.dart';
