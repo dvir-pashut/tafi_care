@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io' as io;
+import 'package:flutter_app/notifications/notification_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -199,8 +200,9 @@ class MongoDatabase {
 
     static Future<List<Map<String, dynamic>>> getTodayPupuData() async {
     final response = await _get(Uri.parse('$currentApiUrl?action=getTodayPupuData'));
-
     if (response.statusCode == 200) {
+      print('got data: ${response.body}');
+      // NotificationService.createNotification();
       return List<Map<String, dynamic>>.from(jsonDecode(response.body));
     } else {
       print('Error in getTodayPupuData: ${response.body}');

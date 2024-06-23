@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/l10n/localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'provider/provider.dart';  // Corrected import path if necessary
+import 'package:flutter_app/l10n/localizations.dart';
+import 'provider/provider.dart';
 import 'pages/start_page.dart';
 import 'pages/food_page.dart';
 import 'pages/snack_page.dart';
 import 'pages/walk_page.dart';
 import 'pages/pupu_page.dart';
-import 'widgets/bottom_nav_bar.dart';  // Add this import
-import 'widgets/app_bar.dart';  // Add this import
+import 'widgets/bottom_nav_bar.dart';
+import 'widgets/app_bar.dart';
+import 'notifications/notification_service.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService.initializeNotifications();
+  await NotificationService.scheduleDailyCheck();
   runApp(const MyApp());
 }
 
@@ -22,24 +26,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => LocaleProvider(),
-      child: Consumer<LocaleProvider>( // Use Consumer to rebuild on locale change
+      child: Consumer<LocaleProvider>(
         builder: (context, provider, child) {
           return MaterialApp(
             title: 'טאפי קר',
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            locale: provider.locale, // Reflects the current locale from LocaleProvider
+            locale: provider.locale,
             supportedLocales: const [
-              Locale('en', 'US'),  // English
-              Locale('he', 'IL'),  // Hebrew
+              Locale('en', 'US'),
+              Locale('he', 'IL'),
               Locale('zh', 'ZH'),
             ],
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
-              AppLocalizationsDelegate(), // Ensure your custom delegate is listed
+              AppLocalizationsDelegate(),
             ],
             localeResolutionCallback: (locale, supportedLocales) {
               for (var supportedLocale in supportedLocales) {
