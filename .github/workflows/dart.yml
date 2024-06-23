@@ -4,6 +4,7 @@ permissions:
   contents: write
   pages: write
   statuses: write
+  id-token: write
 
 jobs:
   # ios:
@@ -44,6 +45,9 @@ jobs:
           path: build/app/outputs/flutter-apk/app-release.apk  
 
   web:
+    environment:
+        name: github-pages
+        url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -64,4 +68,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: webb-app
-          path:  build/web  
+          path:  build/web
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
