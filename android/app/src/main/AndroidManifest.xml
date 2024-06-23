@@ -5,11 +5,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <receiver android:name="me.carda.awesome_notifications.notifications.receivers.ActionReceiver" android:exported="true"/>
-    <receiver android:name="me.carda.awesome_notifications.notifications.receivers.DismissedReceiver" android:exported="true"/>
-    <receiver android:name="me.carda.awesome_notifications.notifications.receivers.FirebaseReceiver" android:exported="true"/>
-    <receiver android:name="me.carda.awesome_notifications.notifications.receivers.NotificationReceiver" android:exported="true"/>
-    <receiver android:name="me.carda.awesome_notifications.notifications.receivers.ScheduledReceiver" android:exported="true"/>
+   
 
     <application
         android:label="טאפי קר"
