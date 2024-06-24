@@ -58,7 +58,7 @@ jobs:
       - run: flutter --version
       - run: flutter doctor
       - run: flutter pub get
-      - run: flutter build web --release --base-href /tafi_care
+      - run: flutter build web --release --base-href /tafi_care/
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
