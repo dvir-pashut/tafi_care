@@ -72,6 +72,8 @@ jobs:
           path:  build/web
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: test something
+        run: ls build/web
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
