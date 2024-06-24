@@ -73,7 +73,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: test something
-        run: ls build/web && mkdir public && cp build/web/* public/*
+        run: ls build/web && mkdir public && cp build/web/* public/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
