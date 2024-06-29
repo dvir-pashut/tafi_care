@@ -11,11 +11,19 @@ import 'pages/pupu_page.dart';
 import 'widgets/bottom_nav_bar.dart';
 import 'widgets/app_bar.dart';
 import 'notifications/notification_service.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firabase/options.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService.initializeNotifications();
   await NotificationService.scheduleDailyCheck();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  final notificationSettings = await FirebaseMessaging.instance.requestPermission(provisional: true);
   runApp(const MyApp());
 }
 

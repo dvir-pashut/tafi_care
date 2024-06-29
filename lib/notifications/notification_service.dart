@@ -12,7 +12,7 @@ class NotificationService {
           channelKey: 'scheduled_channel',
           channelName: 'Scheduled notifications',
           channelDescription: 'Notification channel for scheduled tests',
-          defaultColor: Color(0xFF9D50DD),
+          defaultColor: const Color(0xFF9D50DD),
           ledColor: Colors.white,
           importance: NotificationImportance.High,
         ),

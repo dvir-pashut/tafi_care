@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io' as io;
-import 'package:flutter_app/notifications/notification_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -74,7 +73,7 @@ class MongoDatabase {
 
   static Future<void> switchToNoCacheUrlTemporarily() async {
     currentApiUrl = apiUrlNoCache;
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 5));
     currentApiUrl = apiUrlCloudfront;
   }
 

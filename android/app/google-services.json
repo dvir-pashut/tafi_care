@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1097750006446",
+    "project_id": "tafi-care",
+    "storage_bucket": "tafi-care.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097750006446:android:9c9702004eb345fadd3b3f",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKJTeHH_NR5xa8MxH5ovQLPkA2P1prRuc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
