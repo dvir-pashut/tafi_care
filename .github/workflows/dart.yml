@@ -23,7 +23,7 @@ jobs:
   #     - run: flutter pub get
   #     - run: flutter build ios --release --no-codesign
   #     - name: Upload build as artifact
-  #       uses: actions/upload-artifact@v3
+  #       uses: actions/upload-artifact@v4
   #       with:
   #         name: ios-app
   #         path: build/ios/iphoneos/Runner.app  
@@ -42,7 +42,7 @@ jobs:
   #     #- run: flutter pub run flutter_launcher_icons:main # enable when need to change app icon
   #     - run: flutter build apk --release
   #     - name: Upload build as artifact
-  #       uses: actions/upload-artifact@v3
+  #       uses: actions/upload-artifact@v4
   #       with:
   #         name: android-app
   #         path: build/app/outputs/flutter-apk/app-release.apk  
@@ -70,7 +70,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload build as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path:  build/web
       - name: Setup Pages
