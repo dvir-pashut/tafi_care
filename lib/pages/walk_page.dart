@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import '../mongo_methods/mongo_methods.dart';
 import '../l10n/localizations.dart'; // Ensure this is correctly imported
 import 'package:intl/intl.dart';
+import '../provider/provider.dart';
 
 class WalkPage extends StatefulWidget {
   const WalkPage({super.key});
@@ -13,7 +15,10 @@ class WalkPage extends StatefulWidget {
 
 class _WalkPageState extends State<WalkPage> {
 // 'Walk' is the third item
-  Map<String, dynamic> walkTimes = {"morning": {"time": "", "updater": ""}, "evening": {"time": "", "updater": ""}};
+  Map<String, dynamic> walkTimes = {
+    "morning": {"time": "", "updater": ""},
+    "evening": {"time": "", "updater": ""}
+  };
   bool isLoading = true;
 
   @override
@@ -44,8 +49,7 @@ class _WalkPageState extends State<WalkPage> {
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-    });
+    setState(() {});
 
     switch (index) {
       case 0:
@@ -55,8 +59,8 @@ class _WalkPageState extends State<WalkPage> {
         Navigator.pushReplacementNamed(context, '/snack');
         break;
       case 2:
-        break;  // Already on Walk Page
-      case 3:  // Navigate to Pupu Page
+        break; // Already on Walk Page
+      case 3: // Navigate to Pupu Page
         Navigator.pushReplacementNamed(context, '/pupu');
         break;
     }
@@ -67,19 +71,18 @@ class _WalkPageState extends State<WalkPage> {
     final localizations = AppLocalizations.of(context);
 
     return Scaffold(
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: Provider.of<BackgroundColorProvider>(context).color,
       body: Center(
         child: isLoading
-          ? const CircularProgressIndicator()
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                buildWalkPeriodUI('morning', localizations),
-                buildWalkPeriodUI('evening', localizations),
-              ],
-            ),
+            ? const CircularProgressIndicator()
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildWalkPeriodUI('morning', localizations),
+                  buildWalkPeriodUI('evening', localizations),
+                ],
+              ),
       ),
-
     );
   }
 
@@ -88,25 +91,28 @@ class _WalkPageState extends State<WalkPage> {
     String time = periodData["time"];
     String updater = periodData['updater'];
     bool hasTime = time.isNotEmpty;
-  
+
     return Column(
       children: [
         Text(
-          hasTime 
-            ? '${period == "morning" ? localizations!.walkPeriodMorning : localizations!.walkPeriodEvening}: $time ${localizations.by} $updater ' 
-            : (period == "morning" ? localizations!.walkNotYetMorning : localizations!.walkNotYetEvening),
+          hasTime
+              ? '${period == "morning" ? localizations!.walkPeriodMorning : localizations!.walkPeriodEvening}: $time ${localizations.by} $updater '
+              : (period == "morning"
+                  ? localizations!.walkNotYetMorning
+                  : localizations!.walkNotYetEvening),
           style: const TextStyle(color: Colors.black, fontSize: 24),
         ),
         hasTime
-          ? ElevatedButton(
-              onPressed: () => clearWalkTime(period),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
-              child: Text(localizations.clear),
-            )
-          : ElevatedButton(
-              onPressed: () => updateWalkTime(period),
-              child: Text(localizations.startWalkNow),
-            ),
+            ? ElevatedButton(
+                onPressed: () => clearWalkTime(period),
+                style:
+                    ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+                child: Text(localizations.clear),
+              )
+            : ElevatedButton(
+                onPressed: () => updateWalkTime(period),
+                child: Text(localizations.startWalkNow),
+              ),
       ],
     );
   }

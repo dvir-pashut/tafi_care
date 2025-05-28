@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import '../mongo_methods/mongo_methods.dart';
 import '../l10n/localizations.dart'; // Ensure this is correctly imported
 import 'package:intl/intl.dart';
+import '../provider/provider.dart';
 
 class SnackPage extends StatefulWidget {
   const SnackPage({super.key});
@@ -27,7 +29,10 @@ class _SnackPageState extends State<SnackPage> {
     setState(() => isLoading = true);
     var snacks = await MongoDatabase.getTodaySnackData();
     setState(() {
-      snackTimes = snacks.toSet().cast<Map<String, dynamic>>().toList(); // Remove duplicates
+      snackTimes = snacks
+          .toSet()
+          .cast<Map<String, dynamic>>()
+          .toList(); // Remove duplicates
       isLoading = false; // Stop loading
       showDeleteOptions = false; // Reset delete options visibility
     });
@@ -55,17 +60,16 @@ class _SnackPageState extends State<SnackPage> {
   }
 
   void _onItemTapped(int index) {
-
     switch (index) {
-      case 0:  // Navigate to Food Page
+      case 0: // Navigate to Food Page
         Navigator.pushReplacementNamed(context, '/main');
         break;
-      case 1:  // Already on Snack Page
+      case 1: // Already on Snack Page
         break;
-      case 2:  // Navigate to Walk Page
+      case 2: // Navigate to Walk Page
         Navigator.pushReplacementNamed(context, '/walk');
         break;
-      case 3:  // Navigate to Pupu Page
+      case 3: // Navigate to Pupu Page
         Navigator.pushReplacementNamed(context, '/pupu');
         break;
     }
@@ -75,45 +79,50 @@ class _SnackPageState extends State<SnackPage> {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     return Scaffold(
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: Provider.of<BackgroundColorProvider>(context).color,
       body: Center(
         child: isLoading
-          ? const CircularProgressIndicator()
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                snackTimes.isEmpty
-                  ? Text(
-                      localizations!.snackQuestion,
-                      style: const TextStyle(color: Colors.black, fontSize: 24),
-                    )
-                  : Text(
-                      '${localizations!.snackTimes} ${snackTimes.map((snack) => snack["time"] + " " + localizations.by + " " + snack['updater']).join(', ') }',
-                      style: const TextStyle(color: Colors.black, fontSize: 24),
-                    ),
-                ElevatedButton(
-                  onPressed: _addSnack,
-                  child: Text(localizations.startSnackNow),
-                ),
-                if (snackTimes.isNotEmpty)
+            ? const CircularProgressIndicator()
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  snackTimes.isEmpty
+                      ? Text(
+                          localizations!.snackQuestion,
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 24),
+                        )
+                      : Text(
+                          '${localizations!.snackTimes} ${snackTimes.map((snack) => snack["time"] + " " + localizations.by + " " + snack['updater']).join(', ')}',
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 24),
+                        ),
                   ElevatedButton(
-                    onPressed: _toggleDeleteOptions,
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    child: Text(localizations.clearSpecificTime),
+                    onPressed: _addSnack,
+                    child: Text(localizations.startSnackNow),
                   ),
-                if (showDeleteOptions)
-                  Wrap(
-                    spacing: 10,
-                    children: snackTimes
-                        .map((snack) => ElevatedButton(
-                              onPressed: () => _deleteSnack(snack["time"], snack["updater"]),
-                              style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
-                              child: Text(snack["time"]),
-                            ))
-                        .toList(),
-                  )
-              ],
-            ),
+                  if (snackTimes.isNotEmpty)
+                    ElevatedButton(
+                      onPressed: _toggleDeleteOptions,
+                      style:
+                          ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      child: Text(localizations.clearSpecificTime),
+                    ),
+                  if (showDeleteOptions)
+                    Wrap(
+                      spacing: 10,
+                      children: snackTimes
+                          .map((snack) => ElevatedButton(
+                                onPressed: () => _deleteSnack(
+                                    snack["time"], snack["updater"]),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.redAccent),
+                                child: Text(snack["time"]),
+                              ))
+                          .toList(),
+                    )
+                ],
+              ),
       ),
     );
   }
