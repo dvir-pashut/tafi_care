@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import '../mongo_methods/mongo_methods.dart';
 import '../l10n/localizations.dart'; // Ensure this is correctly imported
 import 'package:intl/intl.dart';
+import '../provider/provider.dart';
 
 class PupuPage extends StatefulWidget {
   const PupuPage({super.key});
@@ -27,7 +29,10 @@ class _PupuPageState extends State<PupuPage> {
     setState(() => isLoading = true);
     var pupus = await MongoDatabase.getTodayPupuData();
     setState(() {
-      pupuTimes = pupus.toSet().cast<Map<String, dynamic>>().toList(); // Remove duplicates
+      pupuTimes = pupus
+          .toSet()
+          .cast<Map<String, dynamic>>()
+          .toList(); // Remove duplicates
       isLoading = false; // Stop loading
       showDeleteOptions = false; // Reset delete options visibility
     });
@@ -54,18 +59,17 @@ class _PupuPageState extends State<PupuPage> {
   }
 
   void _onItemTapped(int index) {
-
     switch (index) {
-      case 0:  // Navigate to Food Page
+      case 0: // Navigate to Food Page
         Navigator.pushReplacementNamed(context, '/main');
         break;
-      case 1:  // Navigate to Snack Page
+      case 1: // Navigate to Snack Page
         Navigator.pushReplacementNamed(context, '/snack');
         break;
-      case 2:  // Navigate to Walk Page
+      case 2: // Navigate to Walk Page
         Navigator.pushReplacementNamed(context, '/walk');
         break;
-      case 3:  // Already on Pupu Page
+      case 3: // Already on Pupu Page
         break;
     }
   }
@@ -74,45 +78,50 @@ class _PupuPageState extends State<PupuPage> {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     return Scaffold(
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: Provider.of<BackgroundColorProvider>(context).color,
       body: Center(
         child: isLoading
-          ? const CircularProgressIndicator()
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                pupuTimes.isEmpty
-                  ? Text(
-                      localizations!.pupuQuestion,
-                      style: const TextStyle(color: Colors.black, fontSize: 24),
-                    )
-                  : Text(
-                      '${localizations!.pupuTimes} ${pupuTimes.map((pupu) => pupu["time"] + " " + localizations.by + " " + pupu['updater']).join(', ') }',
-                      style: const TextStyle(color: Colors.black, fontSize: 24),
-                    ),
-                ElevatedButton(
-                  onPressed: _addPupu,
-                  child: Text(localizations.startPupuNow),
-                ),
-                if (pupuTimes.isNotEmpty)
+            ? const CircularProgressIndicator()
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  pupuTimes.isEmpty
+                      ? Text(
+                          localizations!.pupuQuestion,
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 24),
+                        )
+                      : Text(
+                          '${localizations!.pupuTimes} ${pupuTimes.map((pupu) => pupu["time"] + " " + localizations.by + " " + pupu['updater']).join(', ')}',
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 24),
+                        ),
                   ElevatedButton(
-                    onPressed: _toggleDeleteOptions,
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    child: Text(localizations.clearSpecificTime),
+                    onPressed: _addPupu,
+                    child: Text(localizations.startPupuNow),
                   ),
-                if (showDeleteOptions)
-                  Wrap(
-                    spacing: 10,
-                    children: pupuTimes
-                        .map((pupu) => ElevatedButton(
-                              onPressed: () => _deletePupu(pupu["time"], pupu["updater"]),
-                              style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
-                              child: Text(pupu["time"]),
-                            ))
-                        .toList(),
-                  )
-              ],
-            ),
+                  if (pupuTimes.isNotEmpty)
+                    ElevatedButton(
+                      onPressed: _toggleDeleteOptions,
+                      style:
+                          ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      child: Text(localizations.clearSpecificTime),
+                    ),
+                  if (showDeleteOptions)
+                    Wrap(
+                      spacing: 10,
+                      children: pupuTimes
+                          .map((pupu) => ElevatedButton(
+                                onPressed: () =>
+                                    _deletePupu(pupu["time"], pupu["updater"]),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.redAccent),
+                                child: Text(pupu["time"]),
+                              ))
+                          .toList(),
+                    )
+                ],
+              ),
       ),
     );
   }

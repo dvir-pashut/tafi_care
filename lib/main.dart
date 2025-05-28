@@ -15,7 +15,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firabase/options.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService.initializeNotifications();
@@ -23,7 +22,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final notificationSettings = await FirebaseMessaging.instance.requestPermission(provisional: true);
+  final notificationSettings =
+      await FirebaseMessaging.instance.requestPermission(provisional: true);
   runApp(const MyApp());
 }
 
@@ -32,16 +32,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => LocaleProvider(),
-      child: Consumer<LocaleProvider>(
-        builder: (context, provider, child) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LocaleProvider()),
+        ChangeNotifierProvider(create: (_) => BackgroundColorProvider()),
+      ],
+      child: Consumer2<LocaleProvider, BackgroundColorProvider>(
+        builder: (context, localeProvider, colorProvider, child) {
           return MaterialApp(
             title: 'טאפי קר',
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            locale: provider.locale,
+            locale: localeProvider.locale,
             supportedLocales: const [
               Locale('en', 'US'),
               Locale('he', 'IL'),

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../l10n/localizations.dart'; // Import your localizations
+import '../provider/provider.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onItemTapped;
 
   const CustomBottomNavBar({
-    super.key, 
+    super.key,
     required this.selectedIndex,
     required this.onItemTapped,
   });
@@ -39,7 +41,7 @@ class CustomBottomNavBar extends StatelessWidget {
       selectedItemColor: Colors.green[700], // Color for selected item
       unselectedItemColor: Colors.black, // Color for unselected items
       onTap: onItemTapped,
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: Provider.of<BackgroundColorProvider>(context).color,
     );
   }
 }
