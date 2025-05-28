@@ -38,7 +38,10 @@ class _StartPageState extends State<StartPage> {
     final email = _emailController.text;
     final password = _passwordController.text;
 
-    final isAuthenticated = await MongoDatabase.authenticateUser(email, password);
+    final isAuthenticated = await databaseService.authenticateUser(
+      email,
+      password,
+    );
     if (isAuthenticated) {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
@@ -47,7 +50,12 @@ class _StartPageState extends State<StartPage> {
       Navigator.pushReplacementNamed(context, '/main');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)?.authenticationFailed ?? 'Authentication Failed')),
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)?.authenticationFailed ??
+                'Authentication Failed',
+          ),
+        ),
       );
     }
     setState(() => _isLoading = false);
@@ -64,7 +72,8 @@ class _StartPageState extends State<StartPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              localizations?.welcome ?? 'Welcome', // Fallback to 'Welcome' if null
+              localizations?.welcome ??
+                  'Welcome', // Fallback to 'Welcome' if null
               style: const TextStyle(color: Colors.black, fontSize: 30),
             ),
             const SizedBox(height: 20),
@@ -72,7 +81,9 @@ class _StartPageState extends State<StartPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: localizations?.username ?? 'Username'), // Fallback to 'Username'
+                decoration: InputDecoration(
+                  labelText: localizations?.username ?? 'Username',
+                ), // Fallback to 'Username'
               ),
             ),
             Padding(
@@ -80,7 +91,9 @@ class _StartPageState extends State<StartPage> {
               child: TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: InputDecoration(labelText: localizations?.password ?? 'Password'), // Fallback to 'Password'
+                decoration: InputDecoration(
+                  labelText: localizations?.password ?? 'Password',
+                ), // Fallback to 'Password'
               ),
             ),
             const SizedBox(height: 20),
@@ -88,7 +101,9 @@ class _StartPageState extends State<StartPage> {
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
                     onPressed: _login,
-                    child: Text(localizations?.login ?? 'Login'), // Fallback to 'Login'
+                    child: Text(
+                      localizations?.login ?? 'Login',
+                    ), // Fallback to 'Login'
                   ),
             const SizedBox(height: 10),
           ],

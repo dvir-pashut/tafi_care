@@ -89,9 +89,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   void _changeLanguage(Locale newLocale) {
     if (mounted) {
-      final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+      final localeProvider =
+          Provider.of<LocaleProvider>(context, listen: false);
       localeProvider.setLocale(newLocale);
       Navigator.pop(context); // Close the dialog after changing the language
+    }
   }
-}
 }

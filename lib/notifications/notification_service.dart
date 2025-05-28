@@ -5,19 +5,17 @@ import 'package:flutter/material.dart';
 
 class NotificationService {
   static Future<void> initializeNotifications() async {
-    await AwesomeNotifications().initialize(
-      'resource://drawable/res_app_icon',
-      [
-        NotificationChannel(
-          channelKey: 'scheduled_channel',
-          channelName: 'Scheduled notifications',
-          channelDescription: 'Notification channel for scheduled tests',
-          defaultColor: const Color(0xFF9D50DD),
-          ledColor: Colors.white,
-          importance: NotificationImportance.High,
-        ),
-      ],
-    );
+    await AwesomeNotifications()
+        .initialize('resource://drawable/res_app_icon', [
+          NotificationChannel(
+            channelKey: 'scheduled_channel',
+            channelName: 'Scheduled notifications',
+            channelDescription: 'Notification channel for scheduled tests',
+            defaultColor: const Color(0xFF9D50DD),
+            ledColor: Colors.white,
+            importance: NotificationImportance.High,
+          ),
+        ]);
 
     // Request notification permission on iOS
     await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
@@ -39,7 +37,8 @@ class NotificationService {
   }
 
   static Future<void> scheduleDailyCheck() async {
-    String localTimeZone = await AwesomeNotifications().getLocalTimeZoneIdentifier();
+    String localTimeZone = await AwesomeNotifications()
+        .getLocalTimeZoneIdentifier();
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: 10,
@@ -58,7 +57,7 @@ class NotificationService {
   }
 
   static Future<void> checkDogFeedingStatus() async {
-    final data = await MongoDatabase.getTodayDogData();
+    final data = await databaseService.getTodayDogData();
     final foodStatus = data['food']['status'] ?? 'false';
     if (foodStatus != 'false') {
       await createNotification();

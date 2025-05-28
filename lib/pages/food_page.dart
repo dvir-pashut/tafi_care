@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../mongo_methods/mongo_methods.dart';
-import '../l10n/localizations.dart'; 
+import '../l10n/localizations.dart';
 
 class FoodPage extends StatefulWidget {
   const FoodPage({super.key});
@@ -22,12 +22,12 @@ class _FoodPageState extends State<FoodPage> {
   }
 
   void _checkTodayData() async {
-    setState(() => _isLoading = true);  // Start loading
+    setState(() => _isLoading = true); // Start loading
 
     try {
-      final data = await MongoDatabase.getTodayDogData();
+      final data = await databaseService.getTodayDogData();
       setState(() {
-        _isLoading = false;  // Stop loading
+        _isLoading = false; // Stop loading
         _foodGiven = data.isNotEmpty && data['food']['status'] == 'true';
         _updater = data['food']['updater'];
         print('Food given status: $_foodGiven Updater: $_updater');
@@ -43,13 +43,13 @@ class _FoodPageState extends State<FoodPage> {
   void _onFoodButtonPressed() async {
     final prefs = await SharedPreferences.getInstance();
     final String? email = prefs.getString('email');
-    setState(() => _isLoading = true);  // Start loading
+    setState(() => _isLoading = true); // Start loading
 
     try {
-      await MongoDatabase.updateFoodStatus(true, email!);
+      await databaseService.updateFoodStatus(true, email!);
       setState(() {
         _foodGiven = true;
-        _isLoading = false;  // Stop loading
+        _isLoading = false; // Stop loading
       });
     } catch (e) {
       print('Error updating food status: $e');
@@ -60,13 +60,13 @@ class _FoodPageState extends State<FoodPage> {
   }
 
   void _onUndoFoodButtonPressed() async {
-    setState(() => _isLoading = true);  // Start loading
+    setState(() => _isLoading = true); // Start loading
 
     try {
-      await MongoDatabase.updateFoodStatus(false, "");
+      await databaseService.updateFoodStatus(false, "");
       setState(() {
         _foodGiven = false;
-        _isLoading = false;  // Stop loading
+        _isLoading = false; // Stop loading
       });
     } catch (e) {
       print('Error undoing food status: $e');
@@ -77,20 +77,19 @@ class _FoodPageState extends State<FoodPage> {
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-    });
+    setState(() {});
 
     switch (index) {
-      case 0:  // Navigate to Food Page
+      case 0: // Navigate to Food Page
         Navigator.pushReplacementNamed(context, '/main');
         break;
-      case 1:  // Navigate to Snack Page
+      case 1: // Navigate to Snack Page
         Navigator.pushReplacementNamed(context, '/snack');
         break;
-      case 2:  // Navigate to Walk Page
+      case 2: // Navigate to Walk Page
         Navigator.pushReplacementNamed(context, '/walk');
         break;
-      case 3:  // Navigate to Pupu Page
+      case 3: // Navigate to Pupu Page
         Navigator.pushReplacementNamed(context, '/pupu');
         break;
     }
@@ -103,21 +102,27 @@ class _FoodPageState extends State<FoodPage> {
     return Scaffold(
       backgroundColor: Colors.lightBlue,
       body: Center(
-        child: _isLoading 
+        child: _isLoading
             ? const CircularProgressIndicator()
             : Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 20),
-                  _foodGiven 
-                  ? Text(
-                    '${localizations!.foodGivenToday}  ${localizations.by} $_updater',
-                    style: const TextStyle(color: Colors.black, fontSize: 30),
-                  )
-                  : Text(
-                    localizations!.foodQuestion,
-                    style: const TextStyle(color: Colors.black, fontSize: 30),
-                  ),
+                  _foodGiven
+                      ? Text(
+                          '${localizations!.foodGivenToday}  ${localizations.by} $_updater',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                          ),
+                        )
+                      : Text(
+                          localizations!.foodQuestion,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                          ),
+                        ),
                   const SizedBox(height: 20),
                   if (!_foodGiven)
                     FloatingActionButton(
@@ -128,7 +133,9 @@ class _FoodPageState extends State<FoodPage> {
                   if (_foodGiven)
                     ElevatedButton(
                       onPressed: _onUndoFoodButtonPressed,
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                      ),
                       child: Text(localizations.undo),
                     ),
                 ],

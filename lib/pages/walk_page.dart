@@ -12,8 +12,11 @@ class WalkPage extends StatefulWidget {
 }
 
 class _WalkPageState extends State<WalkPage> {
-// 'Walk' is the third item
-  Map<String, dynamic> walkTimes = {"morning": {"time": "", "updater": ""}, "evening": {"time": "", "updater": ""}};
+  // 'Walk' is the third item
+  Map<String, dynamic> walkTimes = {
+    "morning": {"time": "", "updater": ""},
+    "evening": {"time": "", "updater": ""},
+  };
   bool isLoading = true;
 
   @override
@@ -24,7 +27,7 @@ class _WalkPageState extends State<WalkPage> {
 
   void fetchWalkTimes() async {
     setState(() => isLoading = true);
-    walkTimes = await MongoDatabase.getWalkTimes();
+    walkTimes = await databaseService.getWalkTimes();
     setState(() => isLoading = false);
   }
 
@@ -33,19 +36,18 @@ class _WalkPageState extends State<WalkPage> {
     final String? email = prefs.getString('email');
     setState(() => isLoading = true);
     String time = DateFormat('HH:mm').format(DateTime.now());
-    await MongoDatabase.updateWalkTime(period, time, email!);
+    await databaseService.updateWalkTime(period, time, email!);
     fetchWalkTimes();
   }
 
   void clearWalkTime(String period) async {
     setState(() => isLoading = true);
-    await MongoDatabase.updateWalkTime(period, "", "");
+    await databaseService.updateWalkTime(period, "", "");
     fetchWalkTimes();
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-    });
+    setState(() {});
 
     switch (index) {
       case 0:
@@ -55,8 +57,8 @@ class _WalkPageState extends State<WalkPage> {
         Navigator.pushReplacementNamed(context, '/snack');
         break;
       case 2:
-        break;  // Already on Walk Page
-      case 3:  // Navigate to Pupu Page
+        break; // Already on Walk Page
+      case 3: // Navigate to Pupu Page
         Navigator.pushReplacementNamed(context, '/pupu');
         break;
     }
@@ -70,16 +72,15 @@ class _WalkPageState extends State<WalkPage> {
       backgroundColor: Colors.lightBlue,
       body: Center(
         child: isLoading
-          ? const CircularProgressIndicator()
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                buildWalkPeriodUI('morning', localizations),
-                buildWalkPeriodUI('evening', localizations),
-              ],
-            ),
+            ? const CircularProgressIndicator()
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildWalkPeriodUI('morning', localizations),
+                  buildWalkPeriodUI('evening', localizations),
+                ],
+              ),
       ),
-
     );
   }
 
@@ -88,25 +89,29 @@ class _WalkPageState extends State<WalkPage> {
     String time = periodData["time"];
     String updater = periodData['updater'];
     bool hasTime = time.isNotEmpty;
-  
+
     return Column(
       children: [
         Text(
-          hasTime 
-            ? '${period == "morning" ? localizations!.walkPeriodMorning : localizations!.walkPeriodEvening}: $time ${localizations.by} $updater ' 
-            : (period == "morning" ? localizations!.walkNotYetMorning : localizations!.walkNotYetEvening),
+          hasTime
+              ? '${period == "morning" ? localizations!.walkPeriodMorning : localizations!.walkPeriodEvening}: $time ${localizations.by} $updater '
+              : (period == "morning"
+                    ? localizations!.walkNotYetMorning
+                    : localizations!.walkNotYetEvening),
           style: const TextStyle(color: Colors.black, fontSize: 24),
         ),
         hasTime
-          ? ElevatedButton(
-              onPressed: () => clearWalkTime(period),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
-              child: Text(localizations.clear),
-            )
-          : ElevatedButton(
-              onPressed: () => updateWalkTime(period),
-              child: Text(localizations.startWalkNow),
-            ),
+            ? ElevatedButton(
+                onPressed: () => clearWalkTime(period),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.redAccent,
+                ),
+                child: Text(localizations.clear),
+              )
+            : ElevatedButton(
+                onPressed: () => updateWalkTime(period),
+                child: Text(localizations.startWalkNow),
+              ),
       ],
     );
   }
