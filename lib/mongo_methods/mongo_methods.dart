@@ -24,7 +24,7 @@ abstract class DatabaseService {
 
 /// Global service instance used by the app.  Tests may replace this with a
 /// mock implementation to avoid real HTTP traffic.
-DatabaseService databaseService = MongoDatabase();
+DatabaseService databaseService = const MongoDatabase();
 
 const String apiUrlCloudfront =
     "https://d1cqlij8972v6p.cloudfront.net/prod/lambda";

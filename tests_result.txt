@@ -1,0 +1,463 @@
+00:00 +0: loading /Users/dvirpa/Documents/tafi_care/test/provider_test.dart                                                                                                                            00:01 +0: loading /Users/dvirpa/Documents/tafi_care/test/provider_test.dart                                                                                                                            00:01 +0: /Users/dvirpa/Documents/tafi_care/test/provider_test.dart: default locale is Hebrew                                                                                                          00:01 +1: /Users/dvirpa/Documents/tafi_care/test/provider_test.dart: default locale is Hebrew                                                                                                          00:01 +1: /Users/dvirpa/Documents/tafi_care/test/provider_test.dart: setLocale updates locale and saves preference                                                                                     00:01 +1 -1: /Users/dvirpa/Documents/tafi_care/test/provider_test.dart: setLocale updates locale and saves preference [E]                                                                              
+  Expected: Locale:<en_US>
+    Actual: Locale:<en>
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 474:18  expect
+  test/provider_test.dart 22:5                        main.<fn>
+  
+
+To run this test again: /Users/dvirpa/Documents/flutter/bin/cache/dart-sdk/bin/dart test /Users/dvirpa/Documents/tafi_care/test/provider_test.dart -p vm --plain-name 'setLocale updates locale and saves preference'
+00:01 +1 -1: /Users/dvirpa/Documents/tafi_care/test/provider_test.dart: loadLocale reads saved preference                                                                                              00:01 +2 -1: /Users/dvirpa/Documents/tafi_care/test/provider_test.dart: loadLocale reads saved preference                                                                                              00:01 +2 -1: loading /Users/dvirpa/Documents/tafi_care/test/app_bar_test.dart                                                                                                                          00:01 +2 -1: /Users/dvirpa/Documents/tafi_care/test/app_bar_test.dart: logout icon visibility depends on login state                                                                                   00:01 +3 -1: /Users/dvirpa/Documents/tafi_care/test/pupu_page_test.dart: shows pupu times from service                                                                                                 00:02 +3 -1: /Users/dvirpa/Documents/tafi_care/test/pupu_page_test.dart: shows pupu times from service                                                                                                 00:02 +3 -1: /Users/dvirpa/Documents/tafi_care/test/pupu_page_test.dart: shows pupu times from service                                                                                                 
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following _TypeError was thrown building PupuPage(dirty, dependencies:
+[_LocalizationsScope-[GlobalKey#be2ce]], state: _PupuPageState#d39b4):
+Null check operator used on a null value
+
+The relevant error-causing widget was:
+  PupuPage PupuPage:file:///Users/dvirpa/Documents/tafi_care/test/pupu_page_test.dart:24:38
+
+When the exception was thrown, this was the stack:
+#0      _PupuPageState.build (package:flutter_app/pages/pupu_page.dart:95:43)
+#1      StatefulElement.build (package:flutter/src/widgets/framework.dart:5823:27)
+#2      ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5715:15)
+#3      StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5874:11)
+#4      Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#5      BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2694:15)
+#6      BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2752:11)
+#7      BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3056:18)
+#8      AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:1515:19)
+#9      RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+#10     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1438:15)
+#11     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1351:9)
+#12     AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:1340:9)
+#15     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#16     AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:1329:27)
+#17     WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:720:23)
+#20     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#21     WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:713:27)
+#22     main.<anonymous closure> (file:///Users/dvirpa/Documents/tafi_care/test/pupu_page_test.dart:30:18)
+<asynchronous suspension>
+#23     testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:193:15)
+<asynchronous suspension>
+#24     TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 5 frames from dart:async and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing 09:30: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/dvirpa/Documents/tafi_care/test/pupu_page_test.dart:31:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:193:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/dvirpa/Documents/tafi_care/test/pupu_page_test.dart line 31
+The test description was:
+  shows pupu times from service
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +3 -2: /Users/dvirpa/Documents/tafi_care/test/pupu_page_test.dart: shows pupu times from service [E]                                                                                             
+  Test failed. See exception logs above.
+  The test description was: shows pupu times from service
+  
+
+To run this test again: /Users/dvirpa/Documents/flutter/bin/cache/dart-sdk/bin/dart test /Users/dvirpa/Documents/tafi_care/test/pupu_page_test.dart -p vm --plain-name 'shows pupu times from service'
+00:02 +3 -2: /Users/dvirpa/Documents/tafi_care/test/widget_test.dart: Counter increments smoke test                                                                                                    
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextWidgetFinder:<Found 0 widgets with text "0": []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/dvirpa/Documents/tafi_care/test/widget_test.dart:19:5)
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:193:29)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/dvirpa/Documents/tafi_care/test/widget_test.dart line 19
+The test description was:
+  Counter increments smoke test
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +3 -3: /Users/dvirpa/Documents/tafi_care/test/widget_test.dart: Counter increments smoke test [E]                                                                                                
+  Test failed. See exception logs above.
+  The test description was: Counter increments smoke test
+  
+
+To run this test again: /Users/dvirpa/Documents/flutter/bin/cache/dart-sdk/bin/dart test /Users/dvirpa/Documents/tafi_care/test/widget_test.dart -p vm --plain-name 'Counter increments smoke test'
+00:02 +3 -3: loading /Users/dvirpa/Documents/tafi_care/test/start_page_test.dart                                                                                                                       00:02 +3 -3: /Users/dvirpa/Documents/tafi_care/test/start_page_test.dart: login stores credentials and navigates to main                                                                               00:03 +3 -3: /Users/dvirpa/Documents/tafi_care/test/start_page_test.dart: login stores credentials and navigates to main                                                                               00:03 +4 -3: /Users/dvirpa/Documents/tafi_care/test/snack_page_test.dart: shows snack times from service                                                                                               00:03 +4 -3: /Users/dvirpa/Documents/tafi_care/test/snack_page_test.dart: shows snack times from service                                                                                               
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following _TypeError was thrown building SnackPage(dirty, dependencies:
+[_LocalizationsScope-[GlobalKey#3bfa2]], state: _SnackPageState#7ac3b):
+Null check operator used on a null value
+
+The relevant error-causing widget was:
+  SnackPage SnackPage:file:///Users/dvirpa/Documents/tafi_care/test/snack_page_test.dart:24:38
+
+When the exception was thrown, this was the stack:
+#0      _SnackPageState.build (package:flutter_app/pages/snack_page.dart:96:43)
+#1      StatefulElement.build (package:flutter/src/widgets/framework.dart:5823:27)
+#2      ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5715:15)
+#3      StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5874:11)
+#4      Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#5      BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2694:15)
+#6      BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2752:11)
+#7      BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3056:18)
+#8      AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:1515:19)
+#9      RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+#10     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1438:15)
+#11     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1351:9)
+#12     AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:1340:9)
+#15     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#16     AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:1329:27)
+#17     WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:720:23)
+#20     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#21     WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:713:27)
+#22     main.<anonymous closure> (file:///Users/dvirpa/Documents/tafi_care/test/snack_page_test.dart:30:18)
+<asynchronous suspension>
+#23     testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:193:15)
+<asynchronous suspension>
+#24     TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 5 frames from dart:async and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing 08:00: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/dvirpa/Documents/tafi_care/test/snack_page_test.dart:31:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:193:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/dvirpa/Documents/tafi_care/test/snack_page_test.dart line 31
+The test description was:
+  shows snack times from service
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:03 +4 -4: /Users/dvirpa/Documents/tafi_care/test/snack_page_test.dart: shows snack times from service [E]                                                                                           
+  Test failed. See exception logs above.
+  The test description was: shows snack times from service
+  
+
+To run this test again: /Users/dvirpa/Documents/flutter/bin/cache/dart-sdk/bin/dart test /Users/dvirpa/Documents/tafi_care/test/snack_page_test.dart -p vm --plain-name 'shows snack times from service'
+00:03 +4 -4: /Users/dvirpa/Documents/tafi_care/test/food_page_test.dart: displays food status from service                                                                                             00:03 +5 -4: /Users/dvirpa/Documents/tafi_care/test/food_page_test.dart: displays food status from service                                                                                             00:03 +5 -4: /Users/dvirpa/Documents/tafi_care/test/food_page_test.dart: displays food status from service                                                                                             
+Food given status: true Updater: tester
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following _TypeError was thrown building FoodPage(dirty, dependencies:
+[_LocalizationsScope-[GlobalKey#a6111]], state: _FoodPageState#bf9fa):
+Null check operator used on a null value
+
+The relevant error-causing widget was:
+  FoodPage FoodPage:file:///Users/dvirpa/Documents/tafi_care/test/food_page_test.dart:24:38
+
+When the exception was thrown, this was the stack:
+#0      _FoodPageState.build (package:flutter_app/pages/food_page.dart:113:43)
+#1      StatefulElement.build (package:flutter/src/widgets/framework.dart:5823:27)
+#2      ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5715:15)
+#3      StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5874:11)
+#4      Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#5      BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2694:15)
+#6      BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2752:11)
+#7      BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3056:18)
+#8      AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:1515:19)
+#9      RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+#10     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1438:15)
+#11     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1351:9)
+#12     AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:1340:9)
+#15     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#16     AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:1329:27)
+#17     WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:720:23)
+#20     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#21     WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:713:27)
+#22     main.<anonymous closure> (file:///Users/dvirpa/Documents/tafi_care/test/food_page_test.dart:30:18)
+<asynchronous suspension>
+#23     testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:193:15)
+<asynchronous suspension>
+#24     TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 5 frames from dart:async and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing tester: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/dvirpa/Documents/tafi_care/test/food_page_test.dart:31:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:193:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/dvirpa/Documents/tafi_care/test/food_page_test.dart line 31
+The test description was:
+  displays food status from service
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:03 +5 -5: /Users/dvirpa/Documents/tafi_care/test/food_page_test.dart: displays food status from service [E]                                                                                         
+  Test failed. See exception logs above.
+  The test description was: displays food status from service
+  
+
+To run this test again: /Users/dvirpa/Documents/flutter/bin/cache/dart-sdk/bin/dart test /Users/dvirpa/Documents/tafi_care/test/food_page_test.dart -p vm --plain-name 'displays food status from service'
+00:03 +5 -5: loading /Users/dvirpa/Documents/tafi_care/test/bottom_nav_bar_test.dart                                                                                                                   00:03 +5 -5: /Users/dvirpa/Documents/tafi_care/test/bottom_nav_bar_test.dart: bottom nav bar displays localized labels                                                                                 00:04 +5 -5: /Users/dvirpa/Documents/tafi_care/test/bottom_nav_bar_test.dart: bottom nav bar displays localized labels                                                                                 00:04 +5 -5: /Users/dvirpa/Documents/tafi_care/test/bottom_nav_bar_test.dart: bottom nav bar displays localized labels                                                                                 
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following _TypeError was thrown building CustomBottomNavBar(dirty, dependencies:
+[_LocalizationsScope-[GlobalKey#372f1]]):
+Null check operator used on a null value
+
+The relevant error-causing widget was:
+  CustomBottomNavBar
+  CustomBottomNavBar:file:///Users/dvirpa/Documents/tafi_care/test/bottom_nav_bar_test.dart:15:32
+
+When the exception was thrown, this was the stack:
+#0      CustomBottomNavBar.build (package:flutter_app/widgets/bottom_nav_bar.dart:16:48)
+#1      StatelessElement.build (package:flutter/src/widgets/framework.dart:5781:49)
+#2      ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5715:15)
+#3      Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#4      ComponentElement._firstBuild (package:flutter/src/widgets/framework.dart:5697:5)
+#5      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5691:5)
+...     Normal element mounting (13 frames)
+#18     Element.inflateWidget (package:flutter/src/widgets/framework.dart:4539:16)
+#19     MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7159:36)
+#20     MultiChildRenderObjectElement.mount (package:flutter/src/widgets/framework.dart:7175:32)
+...     Normal element mounting (332 frames)
+#352    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4539:16)
+#353    MultiChildRenderObjectElement.inflateWidget (package:flutter/src/widgets/framework.dart:7159:36)
+#354    MultiChildRenderObjectElement.mount (package:flutter/src/widgets/framework.dart:7175:32)
+...     Normal element mounting (463 frames)
+#817    _InheritedProviderScopeElement.mount (package:provider/src/inherited_provider.dart:411:11)
+...     Normal element mounting (7 frames)
+#824    SingleChildWidgetElementMixin.mount (package:nested/nested.dart:222:11)
+#825    Element.inflateWidget (package:flutter/src/widgets/framework.dart:4539:16)
+#826    Element.updateChild (package:flutter/src/widgets/framework.dart:3998:20)
+#827    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5738:16)
+#828    Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#829    ProxyElement.update (package:flutter/src/widgets/framework.dart:6041:5)
+#830    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#831    Element.updateChild (package:flutter/src/widgets/framework.dart:3982:15)
+#832    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5738:16)
+#833    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5874:11)
+#834    Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#835    StatefulElement.update (package:flutter/src/widgets/framework.dart:5899:5)
+#836    Element.updateChild (package:flutter/src/widgets/framework.dart:3982:15)
+#837    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5738:16)
+#838    Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#839    ProxyElement.update (package:flutter/src/widgets/framework.dart:6041:5)
+#840    _InheritedNotifierElement.update (package:flutter/src/widgets/inherited_notifier.dart:108:11)
+#841    Element.updateChild (package:flutter/src/widgets/framework.dart:3982:15)
+#842    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5738:16)
+#843    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5874:11)
+#844    Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#845    StatefulElement.update (package:flutter/src/widgets/framework.dart:5899:5)
+#846    Element.updateChild (package:flutter/src/widgets/framework.dart:3982:15)
+#847    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5738:16)
+#848    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5874:11)
+#849    Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#850    StatefulElement.update (package:flutter/src/widgets/framework.dart:5899:5)
+#851    Element.updateChild (package:flutter/src/widgets/framework.dart:3982:15)
+#852    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5738:16)
+#853    Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#854    ProxyElement.update (package:flutter/src/widgets/framework.dart:6041:5)
+#855    Element.updateChild (package:flutter/src/widgets/framework.dart:3982:15)
+#856    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5738:16)
+#857    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5874:11)
+#858    Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#859    StatefulElement.update (package:flutter/src/widgets/framework.dart:5899:5)
+#860    Element.updateChild (package:flutter/src/widgets/framework.dart:3982:15)
+#861    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5738:16)
+#862    Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#863    ProxyElement.update (package:flutter/src/widgets/framework.dart:6041:5)
+#864    Element.updateChild (package:flutter/src/widgets/framework.dart:3982:15)
+#865    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5738:16)
+#866    Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#867    ProxyElement.update (package:flutter/src/widgets/framework.dart:6041:5)
+#868    Element.updateChild (package:flutter/src/widgets/framework.dart:3982:15)
+#869    _RawViewElement._updateChild (package:flutter/src/widgets/view.dart:481:16)
+#870    _RawViewElement.update (package:flutter/src/widgets/view.dart:569:5)
+#871    Element.updateChild (package:flutter/src/widgets/framework.dart:3982:15)
+#872    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5738:16)
+#873    Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#874    StatelessElement.update (package:flutter/src/widgets/framework.dart:5787:5)
+#875    Element.updateChild (package:flutter/src/widgets/framework.dart:3982:15)
+#876    ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5738:16)
+#877    StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5874:11)
+#878    Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#879    StatefulElement.update (package:flutter/src/widgets/framework.dart:5899:5)
+#880    Element.updateChild (package:flutter/src/widgets/framework.dart:3982:15)
+#881    RootElement._rebuild (package:flutter/src/widgets/binding.dart:1698:16)
+#882    RootElement.update (package:flutter/src/widgets/binding.dart:1676:5)
+#883    RootElement.performRebuild (package:flutter/src/widgets/binding.dart:1690:7)
+#884    Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#885    BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2694:15)
+#886    BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2752:11)
+#887    BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3056:18)
+#888    AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:1515:19)
+#889    RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+#890    SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1438:15)
+#891    SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1351:9)
+#892    AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:1340:9)
+#895    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#896    AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:1329:27)
+#897    WidgetTester.pumpWidget.<anonymous closure> (package:flutter_test/src/widget_tester.dart:599:22)
+#900    TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#901    WidgetTester.pumpWidget (package:flutter_test/src/widget_tester.dart:596:27)
+#902    main.<anonymous closure> (file:///Users/dvirpa/Documents/tafi_care/test/bottom_nav_bar_test.dart:25:18)
+#903    testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:193:29)
+<asynchronous suspension>
+#904    TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 5 frames from dart:async and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextWidgetFinder:<Found 0 widgets with text "Food": []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/dvirpa/Documents/tafi_care/test/bottom_nav_bar_test.dart:26:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:193:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/dvirpa/Documents/tafi_care/test/bottom_nav_bar_test.dart line 26
+The test description was:
+  bottom nav bar displays localized labels
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:04 +5 -6: /Users/dvirpa/Documents/tafi_care/test/bottom_nav_bar_test.dart: bottom nav bar displays localized labels [E]                                                                             
+  Test failed. See exception logs above.
+  The test description was: bottom nav bar displays localized labels
+  
+
+To run this test again: /Users/dvirpa/Documents/flutter/bin/cache/dart-sdk/bin/dart test /Users/dvirpa/Documents/tafi_care/test/bottom_nav_bar_test.dart -p vm --plain-name 'bottom nav bar displays localized labels'
+00:04 +5 -6: /Users/dvirpa/Documents/tafi_care/test/walk_page_test.dart: shows walk times from service                                                                                                 
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following _TypeError was thrown building WalkPage(dirty, dependencies:
+[_LocalizationsScope-[GlobalKey#3fa08]], state: _WalkPageState#5b2d2):
+Null check operator used on a null value
+
+The relevant error-causing widget was:
+  WalkPage WalkPage:file:///Users/dvirpa/Documents/tafi_care/test/walk_page_test.dart:25:38
+
+When the exception was thrown, this was the stack:
+#0      _WalkPageState.buildWalkPeriodUI (package:flutter_app/pages/walk_page.dart:97:55)
+#1      _WalkPageState.build (package:flutter_app/pages/walk_page.dart:79:19)
+#2      StatefulElement.build (package:flutter/src/widgets/framework.dart:5823:27)
+#3      ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5715:15)
+#4      StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5874:11)
+#5      Element.rebuild (package:flutter/src/widgets/framework.dart:5427:7)
+#6      BuildScope._tryRebuild (package:flutter/src/widgets/framework.dart:2694:15)
+#7      BuildScope._flushDirtyElements (package:flutter/src/widgets/framework.dart:2752:11)
+#8      BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:3056:18)
+#9      AutomatedTestWidgetsFlutterBinding.drawFrame (package:flutter_test/src/binding.dart:1515:19)
+#10     RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+#11     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1438:15)
+#12     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1351:9)
+#13     AutomatedTestWidgetsFlutterBinding.pump.<anonymous closure> (package:flutter_test/src/binding.dart:1340:9)
+#16     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#17     AutomatedTestWidgetsFlutterBinding.pump (package:flutter_test/src/binding.dart:1329:27)
+#18     WidgetTester.pumpAndSettle.<anonymous closure> (package:flutter_test/src/widget_tester.dart:720:23)
+#21     TestAsyncUtils.guard (package:flutter_test/src/test_async_utils.dart:74:41)
+#22     WidgetTester.pumpAndSettle (package:flutter_test/src/widget_tester.dart:713:27)
+#23     main.<anonymous closure> (file:///Users/dvirpa/Documents/tafi_care/test/walk_page_test.dart:31:18)
+<asynchronous suspension>
+#24     testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:193:15)
+<asynchronous suspension>
+#25     TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided 5 frames from dart:async and package:stack_trace)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing 07:00: []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/dvirpa/Documents/tafi_care/test/walk_page_test.dart:32:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:193:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1064:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/dvirpa/Documents/tafi_care/test/walk_page_test.dart line 32
+The test description was:
+  shows walk times from service
+════════════════════════════════════════════════════════════════════════════════════════════════════
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following message was thrown:
+Multiple exceptions (2) were detected during the running of the current test, and at least one was
+unexpected.
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:04 +5 -7: /Users/dvirpa/Documents/tafi_care/test/walk_page_test.dart: shows walk times from service [E]                                                                                             
+  Test failed. See exception logs above.
+  The test description was: shows walk times from service
+  
+
+To run this test again: /Users/dvirpa/Documents/flutter/bin/cache/dart-sdk/bin/dart test /Users/dvirpa/Documents/tafi_care/test/walk_page_test.dart -p vm --plain-name 'shows walk times from service'
+00:04 +5 -7: Some tests failed.                                                                                                                                                                        
