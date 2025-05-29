@@ -7,13 +7,35 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-// import 'package:flutter_application/main.dart';
+
+class TestCounter extends StatefulWidget {
+  const TestCounter({super.key});
+
+  @override
+  State<TestCounter> createState() => _TestCounterState();
+}
+
+class _TestCounterState extends State<TestCounter> {
+  int count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Text('$count'),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => setState(() => count++),
+          child: const Icon(Icons.add),
+        ),
+      ),
+    );
+  }
+}
 
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    // await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const TestCounter());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
