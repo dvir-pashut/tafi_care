@@ -1,87 +1,43 @@
+name: Build and Deploy Web
+
 on:
   workflow_dispatch:
   push:
     branches:
       - main
-      
+
 permissions:
   contents: write
   pages: write
-  statuses: write
   id-token: write
 
 jobs:
-  # ios:
-  #   runs-on: macos-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Install Flutter SDK
-  #       uses: mobiledevops/flutter-sdk-action@v1.0.0
-  #       with:
-  #         flutter-sdk-version: 3.22.2 # Updated version
-  #     - run: flutter --version
-  #     - run: flutter doctor
-  #     - run: flutter pub get
-  #     - run: flutter build ios --release --no-codesign
-  #     - name: Upload build as artifact
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: ios-app
-  #         path: build/ios/iphoneos/Runner.app  
-
-  # android:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Install Flutter SDK
-  #       uses: mobiledevops/flutter-sdk-action@v1.0.0
-  #       with:
-  #         flutter-sdk-version: 3.22.2 # Updated version
-  #     - run: flutter --version
-  #     - run: flutter doctor
-  #     - run: flutter pub get
-  #     #- run: flutter pub run flutter_launcher_icons:main # enable when need to change app icon
-  #     - run: flutter build apk --release
-  #     - name: Upload build as artifact
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: android-app
-  #         path: build/app/outputs/flutter-apk/app-release.apk  
-
   web:
-    environment:
-        name: github-pages
-        url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v3
       - name: Install Flutter SDK
         uses: mobiledevops/flutter-sdk-action@v1.0.0
         with:
-          flutter-sdk-version: 3.22.2 
+          flutter-sdk-version: 3.22.2
       - run: flutter --version
       - run: flutter doctor
       - run: flutter pub get
+      - run: flutter test
       - run: flutter build web --release --base-href /tafi_care/
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: build/web
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload build as artifact
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          path:  build/web
+          path: build/web
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: test something
-        run: ls build/web && mkdir public && cp -r build/web/* public/ && ls public
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: public
+          path: build/web
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

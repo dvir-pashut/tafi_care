@@ -1,0 +1,16 @@
+name: PR Checks
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Flutter SDK
+        uses: mobiledevops/flutter-sdk-action@v1.0.0
+        with:
+          flutter-sdk-version: 3.22.2
+      - run: flutter pub get
+      - run: flutter test
