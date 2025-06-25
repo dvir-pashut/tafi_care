@@ -71,10 +71,12 @@ class MongoDatabase {
     return client;
   }
 
-  static Future<void> switchToNoCacheUrlTemporarily() async {
+  static Future<void> switchToNoCacheUrlTemporarily() {
     currentApiUrl = apiUrlNoCache;
-    await Future.delayed(const Duration(seconds: 5));
-    currentApiUrl = apiUrlCloudfront;
+    Timer(const Duration(seconds: 5), () {
+      currentApiUrl = apiUrlCloudfront;
+    });
+    return Future.value();
   }
 
   static Future<bool> checkUserLoginStatus() async {
